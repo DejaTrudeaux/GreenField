@@ -1,6 +1,5 @@
 angular.module('app')
   .controller('AppCtrl', () => {
-   
   })
   .component('app', {
     bindings: {
