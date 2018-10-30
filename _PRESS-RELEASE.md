@@ -18,27 +18,37 @@ Once the project moves into development, the press release can be used as a touc
  
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
+  Book Swap
+
 
 ## Sub-Heading ##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  This product is for avid readers who want to swap some old books that they no longer want.
 
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  Book Swap is a web-application for people who love to read, and have books they've been meaning to get rid of. Finished a book and ready for something new? That's where Book Swap comes in. We make the connection between the user who wants a book and the user who has that book so that the two of you can trade.
 
 ## Problem ##
   > Describe the problem your product solves.
+  Book Swap solves the problem of books accumulating that you no longer want.
 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
+  When you add a book to your "Have" book list, it is stored in our database so that when a user comes along and searches for that book, they will be connected to you. At this point, you can choose a book from their haves list, and your emails are released to one another.
 
 ## Quote from You ##
   > A quote from a spokesperson in your company.
+  "I thought there should be a way for people to connect with one another based on the books they read, and trade with one another so they could read even more, all the while saving the planet by reducing waste. That's why I made Book Swap!"
 
 ## How to Get Started ##
   > Describe how easy it is to get started.
+  Getting started is easy. Sign up securely on our signup page, log in, and add books by ISBN to your "Have" book list. You can then use the search bar in order to look up a book that you want to trade. If the book is in anyone else's "Have" book list, you can initiate a trade. They will then receive your book list and decide whether they are interested in swapping from your list, and your e-mails will be released to one another so that you can trade.
 
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  "Great concept. It's now so easy to swap books and make friends with people based on your taste in books!"
 
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
+  Now it's your turn to give it a try! Visit the Book Swap app to start trading.
