@@ -1,5 +1,8 @@
 angular.module('app')
-  .controller('LoginCtrl', () => {
+  .controller('LoginCtrl', function LoginCtrl() {
+    this.loginSubmit = () => {
+      console.log('button clicked');
+    };
   })
   .component('login', {
     bindings: {
