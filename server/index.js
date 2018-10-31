@@ -30,16 +30,18 @@ app.use(bodyParser.json());
 
 // this is the main page with a login screen
 let sess;
-app.get('/', (req, res) => {
-  if (!db.checkUser(req, res)) {
-    res.redirect('/login');
-  }
-  sess = req.session;
-  if (sess.username) {
-    res.redirect('/admin');
+app.get('/login', (req, res) => {
+  // if the user appears in the database
+  // redirect them to search page
+  if (req.session.username) {
+    console.log(req.session);
+    sess = req.session;
+    res.send(sess);
   } else {
-    res.render('index.html');
+    res.redirect('signup');
   }
+  // else
+  // redirect them to signup page
 });
 
 // app.get('/', (req, res) => {
@@ -54,37 +56,72 @@ app.get('/', (req, res) => {
 // });
 
 // this is the page the user gets to when they log in
-app.get('/admin', (req, res) => {
-  sess = req.session;
-  if (sess.username) {
-    res.write(`<h1>Hello ${sess.username }</h1>`);
-    res.end('<a href="+">Logout</a>');
-  } else {
-    res.write('<h1> Please login first.</h1>');
-    res.end('<a href="+">Login</a>');
-  }
+app.get('/search', (req, res) => {
+  res.send('search page!');
+  // sess = req.session;
+  // if (sess.username) {
+  //   res.write(`<h1>Hello ${sess.username }</h1>`);
+  //   res.end('<a href="+">Logout</a>');
+  // } else {
+  //   res.write('<h1> Please login first.</h1>');
+  //   res.end('<a href="/login">Login</a>');
+  // }
 });
 
 // this is the logout page
 app.get('/logout', (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.redirect('/');
-    }
-  });
+  // req.session.destroy((err) => {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     res.redirect('/');
+  //   }
+  // });
 });
 
 // assigning username to session's username
 // username comes from html page
 app.post('/login', (req, res) => {
-  if (!db.checkUser(req, res)) {
-    res.redirect('/login');
-  }
-  sess = req.session;
-  sess.username = req.body.username;
-  res.end('done');
+  // if (!db.checkUser(req, res)) {
+  // res.redirect('/login');
+  // }
+  // sess = req.session;
+  // sess.username = req.body.username;
+  // res.end('done');
+});
+
+// signup
+app.post('/signup', (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  new User({ username })
+    .fetch()
+    .then((user) => {
+      if (!user) {
+        // BASIC VERSION
+        // bcrypt.hash(password, null, null, function(err, hash) {
+        //   Users.create({
+        //     username: username,
+        //     password: hash
+        //   }).then(function(user) {
+        //       util.createSession(req, res, user);
+        //   });
+        // });
+        // ADVANCED VERSION -- see user model
+        const newUser = new User({
+          username,
+          password,
+        });
+        newUser.save()
+          .then((newUser) => {
+            util.createSession(req, res, newUser);
+          });
+      } else {
+        console.log('Account already exists');
+        res.redirect('/signup');
+      }
+    });
 });
 
 // server login handler
