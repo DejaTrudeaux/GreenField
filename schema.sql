@@ -25,14 +25,14 @@ CREATE TABLE `books` (
 
 DROP TABLE IF EXISTS `user_booklist`;
 		
-CREATE TABLE `user_booklist` (
+CREATE TABLE `userbooklist` (
   `ISBN_books` INTEGER(13) NOT NULL,
   `id_users` INTEGER NOT NULL,
   
-    FOREIGN KEY (ISBN_books)
-      REFERENCES `books` (`ISBN`);
+    FOREIGN KEY (`ISBN_books`)
+      REFERENCES `books` (`ISBN`),
 
-    FOREIGN KEY (id_users)
-      REFERENCES `users` (`id`);
+    FOREIGN KEY (`id_users`)
+      REFERENCES `users` (`id`)
 
 );
