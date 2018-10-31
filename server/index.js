@@ -8,8 +8,8 @@ const app = express();
 const port = 3000;
 app.listen(port, () => console.log(`BookSwap listening on port ${port}`));
 
-// app.use(express.static(path.join(__dirname, '/../angular-client')));
-// app.use(express.static(path.join(__dirname, '/../node_modules')));
+app.use(express.static(path.join(__dirname, '/../angular-client')));
+app.use(express.static(path.join(__dirname, '/../node_modules')));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
