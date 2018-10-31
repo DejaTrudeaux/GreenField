@@ -1,0 +1,38 @@
+CREATE DATABASE IF NOT EXISTS BookSwap;
+
+USE BookSwap;
+
+
+DROP TABLE IF EXISTS `users`;
+		
+CREATE TABLE `users` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(25) NULL DEFAULT NULL,
+  `password` VARCHAR(100) NULL DEFAULT NULL,
+  `email` VARCHAR(100) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+DROP TABLE IF EXISTS `books`;
+		
+CREATE TABLE `books` (
+  `ISBN` INTEGER(13) NOT NULL,
+  `title` MEDIUMTEXT NULL DEFAULT NULL,
+  `description` MEDIUMTEXT NULL DEFAULT NULL,
+  `author` VARCHAR(50) NULL DEFAULT NULL,
+  PRIMARY KEY (`ISBN`)
+);
+
+DROP TABLE IF EXISTS `user_booklist`;
+		
+CREATE TABLE `user_booklist` (
+  `ISBN_books` INTEGER(13) NOT NULL,
+  `id_users` INTEGER NOT NULL,
+  
+    FOREIGN KEY (ISBN_books)
+      REFERENCES `books` (`ISBN`);
+
+    FOREIGN KEY (id_users)
+      REFERENCES `users` (`id`);
+
+);
