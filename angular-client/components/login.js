@@ -1,10 +1,11 @@
 angular.module('app')
   .controller('LoginCtrl', function LoginCtrl($http) {
     this.checkUser = (username, password) => {
-      console.log('checking user');
+      console.log(username);
       $http({
-        method: 'get',
+        method: 'post',
         url: '/login',
+        data: {username, password}
       }).then((session) => {
         console.log(session, 'session');
         session.username = username;

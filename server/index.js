@@ -34,11 +34,9 @@ app.get('/login', (req, res) => {
   // if the user appears in the database
   // redirect them to search page
   if (req.session.username) {
-    console.log(req.session);
-    sess = req.session;
-    res.send(sess);
+    res.redirect('search');
   } else {
-    res.redirect('signup');
+    res.render('login');
   }
   // else
   // redirect them to signup page
@@ -88,6 +86,14 @@ app.post('/login', (req, res) => {
   // sess = req.session;
   // sess.username = req.body.username;
   // res.end('done');
+  // post request has object in the body
+  // console.log(req.body);
+  db.checkUser(req.body, (response)=>{
+    console.log(response, 'RESPONSE');
+    res.send(response);
+  })
+  // post request will get the object out of the body of the post request
+  // once we have this object, we can use our db.checkuser function
 });
 
 // signup
