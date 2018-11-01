@@ -111,6 +111,7 @@ app.post('/signup', (req, res) => {
         // ADVANCED VERSION -- see user model
         const newUser = new User({
           username,
+          email,
           password,
         });
         newUser.save()
