@@ -91,7 +91,7 @@ app.post('/login', (req, res) => {
   db.checkUser(req.body, (response)=>{
     console.log(response, 'RESPONSE');
     res.send(response);
-  })
+  });
   // post request will get the object out of the body of the post request
   // once we have this object, we can use our db.checkuser function
 });
