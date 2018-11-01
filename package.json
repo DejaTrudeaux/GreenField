@@ -21,7 +21,9 @@
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "mysql": "^2.16.0"
+    "knex": "^0.15.2",
+    "mysql": "^2.16.0",
+    "sequelize": "^4.41.0"
   },
   "devDependencies": {
     "eslint": "^5.8.0",
