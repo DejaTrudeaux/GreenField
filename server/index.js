@@ -41,7 +41,6 @@ app.get('/', (req, res) => {
   }
 });
 
-
 // this is the page the user gets to when they log in
 app.get('/search', (req, res) => {
   res.sendfile('angular-client/templates/search-bar.html');
@@ -69,42 +68,43 @@ app.post('/login', (req, res) => {
 
 // signup
 app.post('/signup', (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
-
-  new User({ username })
-    .fetch()
-    .then((user) => {
-      if (!user) {
-      // BASIC VERSION
-      // bcrypt.hash(password, null, null, function(err, hash) {
-        //   Users.create({
-        //     username: username,
-        //     password: hash
-        //   }).then(function(user) {
-        //       util.createSession(req, res, user);
-        //   });
-        // });
-        // ADVANCED VERSION -- see user model
-        const newUser = new User({
-          username,
-          email,
-          password,
-        });
-        newUser.save()
-          .then((newUser) => {
-            util.createSession(req, res, newUser);
-          });
-      } else {
-        console.log('Account already exists');
-        res.redirect('/signup');
-      }
-    });
+  db.signupUser(req.body, (response) => {
+    // create a session when somebody signs up
+    if (response) {
+      req.session.regenerate(() => {
+        req.session.user = req.body.username;
+      });
+    }
+  });
+  // new User({ username })
+  //   .fetch()
+  //   .then((user) => {
+  //     if (!user) {
+  //     // BASIC VERSION
+  //     // bcrypt.hash(password, null, null, function(err, hash) {
+  //       //   Users.create({
+  //       //     username: username,
+  //       //     password: hash
+  //       //   }).then(function(user) {
+  //       //       util.createSession(req, res, user);
+  //       //   });
+  //       // });
+  //       // ADVANCED VERSION -- see user model
+  //       const newUser = new User({
+  //         username,
+  //         email,
+  //         password,
+  //       });
+  //       newUser.save()
+  //         .then((newUser) => {
+  //           util.createSession(req, res, newUser);
+  //         });
+  //     } else {
+  //       console.log('Account already exists');
+  //       res.redirect('/signup');
+  //     }
+  //   });
 });
-
-// server login handler
-// on click of submit button on login page, send post request to sever at '/login' endpoint.
-// server handler receives username and password through request body
 
 // this is the logout page
 app.get('/logout', (req, res) => {

@@ -26,4 +26,16 @@ const checkUser = (obj, callback) => {
   });
 };
 
+const signupUser = (obj, callback) => {
+  const queryStr = `insert into users (email, username, password) values ('${obj.email}', '${obj.username}', '${obj.password}')`;
+  connection.query(queryStr, (err, result) => {
+    if (err) {
+      callback(err);
+    } else {
+      callback(result);
+    }
+  });
+};
+
 module.exports.checkUser = checkUser;
+module.exports.signupUser = signupUser;
