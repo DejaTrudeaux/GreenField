@@ -30,66 +30,41 @@ app.use(bodyParser.json());
 
 // this is the main page with a login screen
 app.get('/', (req, res) => {
-  // // if the user appears in the database
-  // console.log(req, 'REQUEST ON APP.GET');
-  // if (req.session.user) {
-  //   // redirect them to search page
-  //   res.redirect('search-bar');
-  //   // else
-  // } else {
-  //   // redirect them to signup page
-  //   res.redirect('/login');
-  // }
-});
-
-let sess;
-// this is the page the user gets to when they log in
-app.get('/search', (req, res) => {
-  // res.send('okokokokok');
-  res.render('/search-bar');
-  sess = req.session;
-  if (sess.username) {
-    res.write(`<h1>Hello '${sess.username}' </h1>`);
-    res.end('<a href="+">Logout</a>');
+  // if the user has a session
+  if (req.session.user) {
+    // redirect them to search page
+    res.sendfile('angular-client/templates/search-bar.html');
+    // else
   } else {
-    res.write('<h1> Please login first.</h1>');
-    res.end('<a href="/login">Login</a>');
+    // redirect them to signup page
+    res.sendfile('angular-client/templates/login.html');
   }
 });
 
-// this is the logout page
-app.get('/logout', (req, res) => {
-  // req.session.destroy((err) => {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
-  //     res.redirect('/');
-  //   }
-  // });
+
+// this is the page the user gets to when they log in
+app.get('/search', (req, res) => {
+  res.sendfile('angular-client/templates/search-bar.html');
 });
+
 
 app.post('/login', (req, res) => {
   // use check user function from database
   db.checkUser(req.body, (response) => {
-    console.log(response, 'RESPONSE ON SERVER');
     // if response from database is true
     if (response) {
-      // create a session on request and redirect
+      // create a session on request
       req.session.regenerate(() => {
         // assigning req.body's username to session's user property
         req.session.user = req.body.username;
-        console.log(req.session);
-        res.redirect('/search');
-        // res.send('ok');
-        // change res.send to res.redirect to endpoint for logged in user
+        // res.send(true) so that our login's response is true
+        res.send({ bool: true, req: req.session });
       });
     } else {
-      console.log(req, 'SESSION!!!!!!');
-      res.send(response);
+      // send false so that our login's response is false
+      res.send(false);
     }
   });
-  // post request will get the object out of the body of the post request
-  // once we have this object, we can use our db.checkuser function
 });
 
 // signup
@@ -101,8 +76,8 @@ app.post('/signup', (req, res) => {
     .fetch()
     .then((user) => {
       if (!user) {
-        // BASIC VERSION
-        // bcrypt.hash(password, null, null, function(err, hash) {
+      // BASIC VERSION
+      // bcrypt.hash(password, null, null, function(err, hash) {
         //   Users.create({
         //     username: username,
         //     password: hash
@@ -130,3 +105,14 @@ app.post('/signup', (req, res) => {
 // server login handler
 // on click of submit button on login page, send post request to sever at '/login' endpoint.
 // server handler receives username and password through request body
+
+// this is the logout page
+app.get('/logout', (req, res) => {
+  // req.session.destroy((err) => {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     res.redirect('/');
+  //   }
+  // });
+});
