@@ -1,5 +1,5 @@
 angular.module('app')
-  .controller('BookListItemCtrl', () => {
+  .controller('BookListItemCtrl', function BookListItemCtrl() {
   })
   .component('bookListItem', {
     bindings: {

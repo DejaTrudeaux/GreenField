@@ -33,17 +33,17 @@ app.get('/', (req, res) => {
   // if the user has a session
   if (req.session.user) {
     // redirect them to search page
-    res.sendfile('angular-client/templates/search-bar.html');
+    res.sendFile('angular-client/templates/search-bar.html');
     // else
   } else {
-    // redirect them to signup page
-    res.sendfile('angular-client/templates/login.html');
+    // redirect them to login page
+    res.sendFile('angular-client/templates/login.html');
   }
 });
 
 // this is the page the user gets to when they log in
 app.get('/search', (req, res) => {
-  res.sendfile('angular-client/templates/search-bar.html');
+  res.sendFile('angular-client/templates/search-bar.html');
 });
 
 

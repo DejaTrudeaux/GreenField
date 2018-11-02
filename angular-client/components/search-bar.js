@@ -1,6 +1,9 @@
 angular.module('app')
-  .controller('SearchBarCtrl', () => {
+  .controller('SearchBarCtrl', function SearchBarCtrl() {
     this.view = 'search-bar';
+    this.searchbooks = (searchterm) => {
+      console.log(searchterm);
+    };
   })
   .component('searchBar', {
     bindings: {
