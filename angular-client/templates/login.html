@@ -30,20 +30,20 @@
                     <label for="inputUsername">
                         Username
                     </label>
-                    <input type="username" class="form-control" id="inputUsername" />
+                    <input type="username" class="form-control" id="inputUsername" ng-model="username" />
                 </div>
                 <div class="form-group">
 
                     <label for="inputPassword">
                         Password
                     </label>
-                    <input type="password" class="form-control" id="inputPassword" />
+                    <input type="password" class="form-control" id="inputPassword" ng-model="password"/>
                 </div>
                 <div class="form-group">
                 </div>
                 <div class="checkbox">
                 </div>
-                <button type="submit" class="btn btn-primary" ng-click="$ctrl.loginSubmit()">
+                <button type="submit" class="btn btn-primary" ng-click="$ctrl.checkUser(username, password)">
                     Submit
                 </button>
             </form>
