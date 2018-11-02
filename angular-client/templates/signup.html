@@ -1,0 +1,34 @@
+<div class="col-md-6">
+  <form role="form">
+    <!-- Signup form -->
+    <label for="signup-form-group" class="signup-label">
+      <strong>Sign Up:</strong>
+    </label>
+    <div class="signup-form-group">
+      <label for="inputEmail">
+        Your Email
+      </label>
+      <input type="email" class="form-control" id="inputEmail" ng-model="signupemail" />
+    </div>
+    <div class="signup-form-group">
+      <label for="createUsername">
+        Create Username
+      </label>
+      <input type="username" class="form-control" id="createUsername" ng-model="signupusername" />
+    </div>
+    <div class="signup-form-group">
+
+      <label for="createPassword">
+        Create Password
+      </label>
+      <input type="password" class="form-control" id="createPassword" ng-model="signuppassword" />
+    </div>
+    <div class="form-group">
+    </div>
+    <div class="checkbox">
+    </div>
+    <button type="submit" id="signup-button" class="btn btn-primary" ng-click="$ctrl.signupUser(signupemail, signupusername, signuppassword)">
+      Sign Up
+    </button>
+  </form>
+</div>
