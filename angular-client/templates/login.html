@@ -1,13 +1,13 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <h3 class="text-center">
+            <h3 class="text-center" id="maintitle">
                 Book Swap
             </h3>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
 <dt>
     Description
 </dt>
@@ -23,19 +23,20 @@
 <dd>
     Etiam porta sem malesuada magna mollis euismod.
 </dd>
-<dt>
-    Log In
-</dt>
-        </div>
-        <div class="col-md-4">
+</div>
+        <div class="col-md-6">
             <form role="form">
-                <div class="form-group">
+                <!-- Login form -->
+                <label for="login-form-group" class="login-label">
+                    <strong>Log In:</strong>
+                </label>
+                <div class="login-form-group">
                     <label for="inputUsername">
                         Username
                     </label>
                     <input type="username" class="form-control" id="inputUsername" ng-model="username" />
                 </div>
-                <div class="form-group">
+                <div class="login-form-group">
 
                     <label for="inputPassword">
                         Password
@@ -47,9 +48,44 @@
                 <div class="checkbox">
                 </div>
                 <button type="submit" class="btn btn-primary" ng-click="$ctrl.checkUser(username, password)">
-                    Submit
+                    Log In
                 </button>
             </form>
         </div>
+        <div class="col-md-6">
+            <form role="form">
+                <!-- Signup form -->
+                <label for="signup-form-group" class="signup-label">
+                    <strong>Sign Up:</strong>
+                </label>
+                <div class="signup-form-group">
+                    <label for="inputEmail">
+                        Your Email
+                    </label>
+                    <input type="email" class="form-control" id="inputEmail" ng-model="signupemail" />
+                </div>
+                <div class="signup-form-group">
+                    <label for="createUsername">
+                        Create Username
+                    </label>
+                    <input type="username" class="form-control" id="createUsername" ng-model="signupusername" />
+                </div>
+                <div class="signup-form-group">
+        
+                    <label for="createPassword">
+                        Create Password
+                    </label>
+                    <input type="password" class="form-control" id="createPassword" ng-model="signuppassword" />
+                </div>
+                <div class="form-group">
+                </div>
+                <div class="checkbox">
+                </div>
+                <button type="submit" id="signup-button" class="btn btn-primary" ng-click="$ctrl.signupUser(signupemail, signupusername, signuppassword)">
+                    Sign Up
+                </button>
+            </form>
+        </div>
+
     </div>
 </div>
