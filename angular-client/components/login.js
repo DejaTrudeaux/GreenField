@@ -7,7 +7,7 @@ angular.module('app')
         data: { username, password },
       }).then((response) => {
         if (response.data.bool) {
-          this.changeview('search-bar'); 
+          this.changeview('search-bar');
         }
       }).catch((err) => {
         console.log(err);
