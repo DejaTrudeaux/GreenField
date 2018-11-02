@@ -1,10 +1,5 @@
 angular.module('app')
-  .controller('AppCtrl', ($http) => {
-    // $http.get('/login').then((response) => {
-    //   console.log(response);
-    // }).catch((err) => {
-    //   console.log(err);
-    // });
+  .controller('AppCtrl', () => {
   })
   .component('app', {
     bindings: {

@@ -29,63 +29,104 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // this is the main page with a login screen
-let sess;
 app.get('/', (req, res) => {
-  console.log(req);
-  // if () {
+  // // if the user appears in the database
+  // console.log(req, 'REQUEST ON APP.GET');
+  // if (req.session.user) {
+  //   // redirect them to search page
+  //   res.redirect('search-bar');
+  //   // else
+  // } else {
+  //   // redirect them to signup page
   //   res.redirect('/login');
   // }
-  sess = req.session;
-  if (sess.username) {
-    res.redirect('/admin');
-  } else {
-    res.render('index.html');
-  }
 });
 
-// app.get('/', (req, res) => {
-//   console.log('you just hit the get handler at endpoint /');
-//   res.send('HELLLLLLOOOOOOOO WOOORLLLLDDDDDD');
-//   // check if user is signed in / has session
-//   // if yes, re route to main page / search
-//   // if not , reroute to login page
-//   // check db for login credentials
-//   // if true, re reoute to main page / search
-//   // if false, state that user needs to sign up
-// });
-
+let sess;
 // this is the page the user gets to when they log in
-app.get('/admin', (req, res) => {
+app.get('/search', (req, res) => {
+  // res.send('okokokokok');
+  res.render('/search-bar');
   sess = req.session;
   if (sess.username) {
-    res.write(`<h1>Hello ${sess.username }</h1>`);
+    res.write(`<h1>Hello '${sess.username}' </h1>`);
     res.end('<a href="+">Logout</a>');
   } else {
     res.write('<h1> Please login first.</h1>');
-    res.end('<a href="+">Login</a>');
+    res.end('<a href="/login">Login</a>');
   }
 });
 
 // this is the logout page
 app.get('/logout', (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.redirect('/');
-    }
-  });
+  // req.session.destroy((err) => {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     res.redirect('/');
+  //   }
+  // });
 });
 
 // assigning username to session's username
 // username comes from html page
 app.post('/login', (req, res) => {
-  if (!db.checkUser(req, res)) {
-    res.redirect('/login');
-  }
-  sess = req.session;
-  sess.username = req.body.username;
-  res.end('done');
+  // use check user function from database
+  db.checkUser(req.body, (response) => {
+    console.log(response, 'RESPONSE ON SERVER');
+    // if response from database is true
+    if (response) {
+      // create a session on request and redirect
+      req.session.regenerate(() => {
+        // assigning req.body's username to session's user property
+        req.session.user = req.body.username;
+        console.log(req.session);
+        res.redirect('/search');
+        // res.send('ok');
+        // change res.send to res.redirect to endpoint for logged in user
+      });
+    } else {
+      console.log(req, 'SESSION!!!!!!');
+      res.send(response);
+    }
+  });
+  // post request will get the object out of the body of the post request
+  // once we have this object, we can use our db.checkuser function
+});
+
+// signup
+app.post('/signup', (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  new User({ username })
+    .fetch()
+    .then((user) => {
+      if (!user) {
+        // BASIC VERSION
+        // bcrypt.hash(password, null, null, function(err, hash) {
+        //   Users.create({
+        //     username: username,
+        //     password: hash
+        //   }).then(function(user) {
+        //       util.createSession(req, res, user);
+        //   });
+        // });
+        // ADVANCED VERSION -- see user model
+        const newUser = new User({
+          username,
+          email,
+          password,
+        });
+        newUser.save()
+          .then((newUser) => {
+            util.createSession(req, res, newUser);
+          });
+      } else {
+        console.log('Account already exists');
+        res.redirect('/signup');
+      }
+    });
 });
 
 // server login handler
