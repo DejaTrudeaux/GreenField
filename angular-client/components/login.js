@@ -6,7 +6,9 @@ angular.module('app')
         url: '/login',
         data: { username, password },
       }).then((response) => {
-        console.log(response, 'RESPONSE CLIENT!');
+        if (response.data.bool) {
+          this.changeview('search-bar'); 
+        }
       }).catch((err) => {
         console.log(err);
       });
@@ -14,6 +16,7 @@ angular.module('app')
   })
   .component('login', {
     bindings: {
+      changeview: '<',
     },
     controller: 'LoginCtrl',
     templateUrl: '/templates/login.html',
