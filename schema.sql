@@ -2,8 +2,10 @@ CREATE DATABASE IF NOT EXISTS BookSwap;
 
 USE BookSwap;
 
-
+DROP TABLE IF EXISTS `userbooklist`;
 DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `books`;
+
 		
 CREATE TABLE `users` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
@@ -13,7 +15,6 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`)
 );
 
-DROP TABLE IF EXISTS `books`;
 		
 CREATE TABLE `books` (
   `ISBN` INTEGER(13) NOT NULL,
@@ -23,11 +24,12 @@ CREATE TABLE `books` (
   PRIMARY KEY (`ISBN`)
 );
 
-DROP TABLE IF EXISTS `user_booklist`;
 		
 CREATE TABLE `userbooklist` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
   `ISBN_books` INTEGER(13) NOT NULL,
   `id_users` INTEGER NOT NULL,
+  PRIMARY KEY (`id`),
   
     FOREIGN KEY (`ISBN_books`)
       REFERENCES `books` (`ISBN`),
