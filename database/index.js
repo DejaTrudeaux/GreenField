@@ -50,14 +50,23 @@ const findBook = (number, callback) => {
 
 const addBook = (bookObj, sessionUser, callback) => {
   // add book to books table
-  const bookQueryStr = `insert into books (isbn, title, description, author) values (${bookObj.isbn}, '${bookObj.title}', '${bookObj.description}', '${bookObj.author}')`;
+  const bookQueryStr = `insert into books (ISBN, title, description, author) values (${bookObj.isbn}, '${bookObj.title}', '${bookObj.description}', '${bookObj.author}')`;
   const userBookQueryStr = `insert into userbooklist (isbn_books, username_users) values (${bookObj.isbn}, '${sessionUser}')`;
-  connection.query(bookQueryStr, (err, result) => {
+  const findBookStr = `select * from books where ISBN = ${bookObj.isbn}`;
+  connection.query(findBookStr, (err, result) => {
     if (err) {
       console.log(err);
     } else {
-      callback(result);
-      // then add information to shared userbooklist table
+      if (!result.length) {
+        console.log(result, 'HAY HAY HAY HAY HAY');
+        connection.query(bookQueryStr, (err, result) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(result);
+          }
+        });
+      } 
       connection.query(userBookQueryStr, (err, result) => {
         if (err) {
           console.log(err);
@@ -66,7 +75,6 @@ const addBook = (bookObj, sessionUser, callback) => {
         }
       });
     }
-    console.log(bookObj, sessionUser, 'ADD BOOK IN DATABASE!!!!!!!!!!!!!!!!!!');
   });
 };
 

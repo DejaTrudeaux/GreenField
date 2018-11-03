@@ -43,7 +43,7 @@ app.get('/', (req, res) => {
 
 // this is the page the user gets to when they log in
 app.get('/search', (req, res) => {
-  res.sendFile('/Users/deja_video/Documents/Immersion/greenfield/angular-client/templates/search-bar.html');
+  // res.sendFile('/Users/deja_video/Documents/Immersion/greenfield/angular-client/templates/search-bar.html');
 });
 
 
@@ -128,8 +128,4 @@ app.get('/logout', (req, res) => {
   //     res.redirect('/');
   //   }
   // });
-});
-
-app.post('/bananas', (req, res) => {
-
 });
