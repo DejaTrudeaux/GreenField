@@ -45,5 +45,5 @@ angular.module('app')
     bindings: {
     },
     controller: 'SearchBarCtrl',
-    templateUrl: '/templates/search-bar.html',
+    templateUrl: '/templates/search-bar.html', 
   });
