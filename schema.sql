@@ -9,11 +9,11 @@ DROP TABLE IF EXISTS `books`;
 
 		
 CREATE TABLE `users` (
-  `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(25) NULL DEFAULT NULL,
+  -- `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(25) NOT NULL,
   `password` VARCHAR(100) NULL DEFAULT NULL,
   `email` VARCHAR(100) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`username`)
 );
 
 		
@@ -30,24 +30,24 @@ CREATE TABLE `books` (
 CREATE TABLE `userbooklist` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `ISBN_books` VARCHAR(13) NOT NULL,
-  `id_users` INTEGER NOT NULL,
+  `username_users` VARCHAR(25) NOT NULL,
   PRIMARY KEY (`id`),
   
     FOREIGN KEY (`ISBN_books`)
       REFERENCES `books` (`ISBN`),
 
-    FOREIGN KEY (`id_users`)
-      REFERENCES `users` (`id`)
+    FOREIGN KEY (`username_users`)
+      REFERENCES `users` (`username`)
 );
 
 CREATE TABLE `requests` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `id_users` INTEGER NOT NULL,
+  `username_users` VARCHAR(25) NOT NULL,
   `id_userbooklist` INTEGER NOT NULL,
   PRIMARY KEY (`id`),
 
-  FOREIGN KEY (`id_users`)
-    REFERENCES `users` (`id`),
+  FOREIGN KEY (`username_users`)
+    REFERENCES `users` (`username`),
 
   FOREIGN KEY (`id_userbooklist`)
     REFERENCES `userbooklist` (`id`)  

@@ -118,7 +118,6 @@ app.post('/signup', (req, res) => {
 
 app.get('/isbn/:number', (req, res) => {
   const isbn = req.url.slice(6);
-  console.log(isbn, 'ISBN IN SERVER!!!!');
   db.findBook(isbn, (response) => {
     res.send(response);
   });

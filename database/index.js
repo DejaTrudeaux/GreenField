@@ -50,38 +50,50 @@ const findBook = (number, callback) => {
   });
 };
 
-
-// const dbmockInsertion = (mockData, callback) => {
-//   mockData.forEach((book) => {
-//     const isbn = book.items[0].volumeInfo.industryIdentifiers[0].identifier;
-//     const title = book.items[0].volumeInfo.title;
-//     const authors = book.items[0].volumeInfo.authors[0];
-//     const description = book.items[0].volumeInfo.description;
-//     const genres = book.items[0].volumeInfo.categories[0];
-//     const imageLinks = book.items[0].volumeInfo.imageLinks.smallThumbnail;
-//     // genre is misspelled in the db, need to change schema!!!
-//     const queryStr = `insert into books (isbn, title, author, description, imageLink) values (${isbn}, ${title}, ${authors}, ${description}, ${imageLinks})`;
-//     connection.query(queryStr, (err, success) => {
-//       if (err) {
-//         callback(err);
-//       } else {
-//         callback(success);
-//       }
-//     });
-//   });
-// };
-
-const addBook = (bookObj, username, callback) => {
+const addBook = (bookObj, sessionUser, callback) => {
+  // add book to books table
   const bookQueryStr = `insert into books (isbn, title, description, author) values (${bookObj.isbn}, '${bookObj.title}', '${bookObj.description}', '${bookObj.author}')`;
-  // const userQueryStr = `insert into userbooklist ()`
-  connection.query(bookQueryStr, (err, result) => {
+  const userBookQueryStr = `insert into userbooklist (isbn_books, username_users) values (${bookObj.isbn}, '${sessionUser}')`;
+  const findBookStr = `select * from books where ISBN = ${bookObj.isbn}`;
+  connection.query(findBookStr, (err, result) => {
     if (err) {
       console.log(err);
     } else {
-      callback(result);
+      if (!result.length) {
+        console.log(result, 'HAY HAY HAY HAY HAY');
+        connection.query(bookQueryStr, (err, result) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(result);
+          }
+        });
+      }
+      connection.query(userBookQueryStr, (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(result);
+        }
+      });
     }
   });
-  console.log(bookObj, username, 'IN DATABASE!!!!!!!!!!!!!!!!!!');
+  // connection.query(bookQueryStr, (err, result) => {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     callback(result);
+  //     // then add information to shared userbooklist table
+  //     connection.query(userBookQueryStr, (err, result) => {
+  //       if (err) {
+  //         console.log(err);
+  //       } else {
+  //         console.log(result);
+  //       }
+  //     });
+  //   }
+  //   console.log(bookObj, sessionUser, 'ADD BOOK IN DATABASE!!!!!!!!!!!!!!!!!!');
+  // });
 };
 
 module.exports.checkUser = checkUser;
