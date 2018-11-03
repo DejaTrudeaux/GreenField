@@ -4,6 +4,7 @@ const path = require('path');
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const db = require('../database/index.js');
+const mock = require('../mocData.js');
 
 const app = express();
 // use express sessions to authenticate user
@@ -20,8 +21,8 @@ app.use(session({
 const port = 3000;
 app.listen(port, () => console.log(`BookSwap listening on port ${port}`));
 
-app.use(express.static(path.join(__dirname, '/../angular-client')));
-app.use(express.static(path.join(__dirname, '/../node_modules')));
+// app.use(express.static(path.join(__dirname, '/../angular-client')));
+// app.use(express.static(path.join(__dirname, '/../node_modules')));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -31,7 +32,7 @@ app.use(bodyParser.json());
 // this is the main page with a login screen
 app.get('/', (req, res) => {
   // for each item in
-  console.log(Window.mocData);
+  
   console.log('hello');
   // if the user has a session
   if (req.session.user) {

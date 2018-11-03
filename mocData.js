@@ -1,4 +1,4 @@
-Window.mocData = [
+const data = [
   {
     kind: 'books#volumes',
     totalItems: 1,
@@ -883,3 +883,5 @@ Window.mocData = [
     ],
   },
 ];
+
+module.exports.data = data;
