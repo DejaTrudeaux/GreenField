@@ -1,12 +1,17 @@
 angular.module('app')
   .controller('SearchBarCtrl', function SearchBarCtrl($http) {
     this.view = 'search-bar';
+    this.ctrlArr = [];
     this.searchbooks = (searchterm) => {
       $http({
         method: 'get',
         url: `/isbn/'${searchterm}'`,
       }).then((response) => {
-        console.log(response, 'THIS IS FOR SURE THE THING I AM LOOKING FOR');
+        // if the response has any books in it
+        // render that data
+        if (response.data.length) {
+          this.ctrlArr = response.data;
+        }
       }).catch((err) => {
         console.log(err);
       });
@@ -43,6 +48,7 @@ angular.module('app')
   })
   .component('searchBar', {
     bindings: {
+      books: '<',
     },
     controller: 'SearchBarCtrl',
     templateUrl: '/templates/search-bar.html', 

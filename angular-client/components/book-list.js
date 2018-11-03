@@ -3,6 +3,7 @@ angular.module('app')
   })
   .component('bookList', {
     bindings: {
+      booklist: '<',
     },
     controller: 'BookListCtrl',
     templateUrl: '/templates/book-list.html',
