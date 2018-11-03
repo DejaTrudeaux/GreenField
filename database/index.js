@@ -37,5 +37,18 @@ const signupUser = (obj, callback) => {
   });
 };
 
+const findBook = (number, callback) => {
+  const queryStr = `select * from books where isbn = ${number}`;
+  connection.query(queryStr, (err, result) => {
+    if (err) {
+      callback(err);
+    } else {
+      callback(result);
+    }
+  });
+};
+
 module.exports.checkUser = checkUser;
 module.exports.signupUser = signupUser;
+module.exports.findBook = findBook;
+

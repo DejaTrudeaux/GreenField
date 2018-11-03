@@ -1,8 +1,15 @@
 angular.module('app')
-  .controller('SearchBarCtrl', function SearchBarCtrl() {
+  .controller('SearchBarCtrl', function SearchBarCtrl($http) {
     this.view = 'search-bar';
     this.searchbooks = (searchterm) => {
-      console.log(searchterm);
+      $http({
+        method: 'get',
+        url: `/isbn/'${searchterm}'`,
+      }).then((response) => {
+        console.log(response);
+      }).catch((err) => {
+        console.log(err);
+      });
     };
   })
   .component('searchBar', {
