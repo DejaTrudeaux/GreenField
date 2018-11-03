@@ -70,8 +70,21 @@ const dbmockInsertion = (mockData, callback) => {
     });
   });
 };
+const addBook = (bookObj, username, callback) => {
+  const bookQueryStr = `insert into books (isbn, title, description, author) values (${bookObj.isbn}, '${bookObj.title}', '${bookObj.description}', '${bookObj.author}')`;
+  // const userQueryStr = `insert into userbooklist ()`
+  connection.query(bookQueryStr, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      callback(result);
+    }
+  });
+  console.log(bookObj, username, 'IN DATABASE!!!!!!!!!!!!!!!!!!');
+};
 
 module.exports.checkUser = checkUser;
 module.exports.signupUser = signupUser;
 module.exports.findBook = findBook;
 module.exports.dbmockInsertion = dbmockInsertion;
+module.exports.addBook = addBook;

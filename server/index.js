@@ -124,6 +124,12 @@ app.post('/signup', (req, res) => {
 //   });
 // });
 
+app.post('/books', (req, res) => {
+  db.addBook(req.body, req.session.user, (response) => {
+    res.send(response);
+  });
+});
+
 // this is the logout page
 // app.get('/logout', (req, res) => {
 //   // req.session.destroy((err) => {
