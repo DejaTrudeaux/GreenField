@@ -3,11 +3,23 @@
     <div class="col-md-10">
       <form role="form">
         <div class="form-group">
-            <h2>Search here to Swap Books:</h2>
-          <input type="text" class="form-control" id="searchField" placeholder="Enter ISBN"/>
+            <h2 class="searchheader">Search here to Swap Books:</h2>
+          <input type="text" class="form-control" id="searchField" placeholder="Enter ISBN" ng-model="searchterm"/>
         </div>
         
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary" ng-click="$ctrl.searchbooks(searchterm)">
+          Search
+        </button>
+        <!-- list random books from db -->
+        <div>
+
+        </div>
+        <div class="form-group">
+          <h2 class="haveBooksHeader">Add books that you have:</h2>
+          <input type="text" class="form-control" id="haveField" placeholder="Enter ISBN" ng-model="havebook" />
+        </div>
+        
+        <button type="submit" class="btn btn-primary" ng-click="$ctrl.addBooks(havebook)">
           Search
         </button>
       </form>

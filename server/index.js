@@ -109,6 +109,14 @@ app.post('/signup', (req, res) => {
   //   });
 });
 
+app.get('/isbn/:number', (req, res) => {
+  const isbn = req.url.slice(6);
+  console.log(isbn, 'ISBN IN SERVER!!!!');
+  db.findBook(isbn, (response) => {
+    res.send(response);
+  });
+});
+
 // this is the logout page
 app.get('/logout', (req, res) => {
   // req.session.destroy((err) => {
@@ -118,4 +126,8 @@ app.get('/logout', (req, res) => {
   //     res.redirect('/');
   //   }
   // });
+});
+
+app.post('/bananas', (req, res) => {
+
 });
