@@ -53,7 +53,7 @@ app.get('/', (req, res) => {
 
 // this is the page the user gets to when they log in
 app.get('/search', (req, res) => {
-  res.sendFile('angular-client/templates/search-bar.html');
+  // res.sendFile('/Users/deja_video/Documents/Immersion/greenfield/angular-client/templates/search-bar.html');
 });
 
 
@@ -130,16 +130,12 @@ app.post('/books', (req, res) => {
 });
 
 // this is the logout page
-// app.get('/logout', (req, res) => {
-//   // req.session.destroy((err) => {
-//   //   if (err) {
-//   //     console.log(err);
-//   //   } else {
-//   //     res.redirect('/');
-//   //   }
-//   // });
-// });
-
-// app.post('/bananas', (req, res) => {
-
-// });
+app.get('/logout', (req, res) => {
+  // req.session.destroy((err) => {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     res.redirect('/');
+  //   }
+  // });
+});

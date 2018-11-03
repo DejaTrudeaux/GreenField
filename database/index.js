@@ -40,7 +40,7 @@ const signupUser = (obj, callback) => {
 };
 
 const findBook = (number, callback) => {
-  const queryStr = `select * from books where isbn = ${number}`;
+  const queryStr = `select * from userbooklist where isbn_books = ${number}`;
   connection.query(queryStr, (err, result) => {
     if (err) {
       callback(err);
@@ -52,28 +52,27 @@ const findBook = (number, callback) => {
 
 const addBook = (bookObj, sessionUser, callback) => {
   // add book to books table
-  const bookQueryStr = `insert into books (isbn, title, description, author) values (${bookObj.isbn}, '${bookObj.title}', '${bookObj.description}', '${bookObj.author}')`;
+  const bookQueryStr = `insert into books (ISBN, title, description, author) values (${bookObj.isbn}, '${bookObj.title}', '${bookObj.description}', '${bookObj.author}')`;
   const userBookQueryStr = `insert into userbooklist (isbn_books, username_users) values (${bookObj.isbn}, '${sessionUser}')`;
   const findBookStr = `select * from books where ISBN = ${bookObj.isbn}`;
   connection.query(findBookStr, (err, result) => {
     if (err) {
-      console.log(err);
+      callback(err);
     } else {
       if (!result.length) {
-        console.log(result, 'HAY HAY HAY HAY HAY');
         connection.query(bookQueryStr, (err, result) => {
           if (err) {
-            console.log(err);
+            callback(err);
           } else {
-            console.log(result);
+            callback(result);
           }
         });
       }
       connection.query(userBookQueryStr, (err, result) => {
         if (err) {
-          console.log(err);
+          callback(err);
         } else {
-          console.log(result);
+          callback(result);
         }
       });
     }
