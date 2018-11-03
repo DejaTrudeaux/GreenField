@@ -3,6 +3,7 @@ const mysql = require('mysql');
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
+  password: 'NEWPASSWORD',
   database: 'BookSwap',
 });
 
@@ -29,6 +30,7 @@ const checkUser = (obj, callback) => {
 const signupUser = (obj, callback) => {
   const queryStr = `insert into users (email, username, password) values ('${obj.email}', '${obj.username}', '${obj.password}')`;
   connection.query(queryStr, (err, result) => {
+    console.log('db query insertion attempted');
     if (err) {
       callback(err);
     } else {

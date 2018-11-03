@@ -30,20 +30,23 @@ app.use(bodyParser.json());
 
 // this is the main page with a login screen
 app.get('/', (req, res) => {
+  // for each item in
+  console.log(Window.mocData);
+  console.log('hello');
   // if the user has a session
   if (req.session.user) {
     // redirect them to search page
-    res.sendfile('angular-client/templates/search-bar.html');
+    res.sendFile('angular-client/templates/search-bar.html');
     // else
   } else {
     // redirect them to signup page
-    res.sendfile('angular-client/templates/login.html');
+    res.sendFile('angular-client/templates/login.html');
   }
 });
 
 // this is the page the user gets to when they log in
 app.get('/search', (req, res) => {
-  res.sendfile('angular-client/templates/search-bar.html');
+  res.sendFile('angular-client/templates/search-bar.html');
 });
 
 
