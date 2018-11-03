@@ -114,6 +114,10 @@ app.get('/isbn/:number', (req, res) => {
   });
 });
 
+app.post('/books', (req, res) => {
+  db.addBook(req.body, req.session.user);
+});
+
 // this is the logout page
 app.get('/logout', (req, res) => {
   // req.session.destroy((err) => {

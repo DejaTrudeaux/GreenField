@@ -48,7 +48,11 @@ const findBook = (number, callback) => {
   });
 };
 
+const addBook = (bookObj, username, callback) => {
+  console.log(bookObj, username, 'IN DATABASE!!!!!!!!!!!!!!!!!!');
+};
+
 module.exports.checkUser = checkUser;
 module.exports.signupUser = signupUser;
 module.exports.findBook = findBook;
-
+module.exports.addBook = addBook;
