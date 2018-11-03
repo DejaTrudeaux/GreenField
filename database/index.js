@@ -51,25 +51,26 @@ const findBook = (number, callback) => {
 };
 
 
-const dbmockInsertion = (mockData, callback) => {
-  mockData.forEach((book) => {
-    const isbn = book.items[0].volumeInfo.industryIdentifiers[0].identifier;
-    const title = book.items[0].volumeInfo.title;
-    const authors = book.items[0].volumeInfo.authors[0];
-    const description = book.items[0].volumeInfo.description;
-    const genres = book.items[0].volumeInfo.categories[0];
-    const imageLinks = book.items[0].volumeInfo.imageLinks.smallThumbnail;
-    // genre is misspelled in the db, need to change schema!!!
-    const queryStr = `insert into books (isbn, title, author, description, imageLink) values (${isbn}, ${title}, ${authors}, ${description}, ${imageLinks})`;
-    connection.query(queryStr, (err, success) => {
-      if (err) {
-        callback(err);
-      } else {
-        callback(success);
-      }
-    });
-  });
-};
+// const dbmockInsertion = (mockData, callback) => {
+//   mockData.forEach((book) => {
+//     const isbn = book.items[0].volumeInfo.industryIdentifiers[0].identifier;
+//     const title = book.items[0].volumeInfo.title;
+//     const authors = book.items[0].volumeInfo.authors[0];
+//     const description = book.items[0].volumeInfo.description;
+//     const genres = book.items[0].volumeInfo.categories[0];
+//     const imageLinks = book.items[0].volumeInfo.imageLinks.smallThumbnail;
+//     // genre is misspelled in the db, need to change schema!!!
+//     const queryStr = `insert into books (isbn, title, author, description, imageLink) values (${isbn}, ${title}, ${authors}, ${description}, ${imageLinks})`;
+//     connection.query(queryStr, (err, success) => {
+//       if (err) {
+//         callback(err);
+//       } else {
+//         callback(success);
+//       }
+//     });
+//   });
+// };
+
 const addBook = (bookObj, username, callback) => {
   const bookQueryStr = `insert into books (isbn, title, description, author) values (${bookObj.isbn}, '${bookObj.title}', '${bookObj.description}', '${bookObj.author}')`;
   // const userQueryStr = `insert into userbooklist ()`
@@ -86,5 +87,5 @@ const addBook = (bookObj, username, callback) => {
 module.exports.checkUser = checkUser;
 module.exports.signupUser = signupUser;
 module.exports.findBook = findBook;
-module.exports.dbmockInsertion = dbmockInsertion;
+// module.exports.dbmockInsertion = dbmockInsertion;
 module.exports.addBook = addBook;

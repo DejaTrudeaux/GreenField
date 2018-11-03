@@ -21,8 +21,8 @@ app.use(session({
 const port = 3000;
 app.listen(port, () => console.log(`BookSwap listening on port ${port}`));
 
-// app.use(express.static(path.join(__dirname, '/../angular-client')));
-// app.use(express.static(path.join(__dirname, '/../node_modules')));
+app.use(express.static(path.join(__dirname, '/../angular-client')));
+app.use(express.static(path.join(__dirname, '/../node_modules')));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -32,13 +32,13 @@ app.use(bodyParser.json());
 // this is the main page with a login screen
 app.get('/', (req, res) => {
   // for each item in
-  db.dbmockInsertion(mock.data, (err, success) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(success);
-    }
-  });
+  // db.dbmockInsertion(mock.data, (err, success) => {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     console.log(success);
+  //   }
+  // });
   console.log('hello');
   // if the user has a session
   if (req.session.user) {
@@ -116,13 +116,13 @@ app.post('/signup', (req, res) => {
   //   });
 });
 
-// app.get('/isbn/:number', (req, res) => {
-//   const isbn = req.url.slice(6);
-//   console.log(isbn, 'ISBN IN SERVER!!!!');
-//   db.findBook(isbn, (response) => {
-//     res.send(response);
-//   });
-// });
+app.get('/isbn/:number', (req, res) => {
+  const isbn = req.url.slice(6);
+  console.log(isbn, 'ISBN IN SERVER!!!!');
+  db.findBook(isbn, (response) => {
+    res.send(response);
+  });
+});
 
 app.post('/books', (req, res) => {
   db.addBook(req.body, req.session.user, (response) => {
