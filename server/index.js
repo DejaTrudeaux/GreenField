@@ -32,7 +32,13 @@ app.use(bodyParser.json());
 // this is the main page with a login screen
 app.get('/', (req, res) => {
   // for each item in
-  
+  db.dbmockInsertion(mock.data, (err, success) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(success);
+    }
+  });
   console.log('hello');
   // if the user has a session
   if (req.session.user) {
@@ -110,25 +116,25 @@ app.post('/signup', (req, res) => {
   //   });
 });
 
-app.get('/isbn/:number', (req, res) => {
-  const isbn = req.url.slice(6);
-  console.log(isbn, 'ISBN IN SERVER!!!!');
-  db.findBook(isbn, (response) => {
-    res.send(response);
-  });
-});
+// app.get('/isbn/:number', (req, res) => {
+//   const isbn = req.url.slice(6);
+//   console.log(isbn, 'ISBN IN SERVER!!!!');
+//   db.findBook(isbn, (response) => {
+//     res.send(response);
+//   });
+// });
 
 // this is the logout page
-app.get('/logout', (req, res) => {
-  // req.session.destroy((err) => {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
-  //     res.redirect('/');
-  //   }
-  // });
-});
+// app.get('/logout', (req, res) => {
+//   // req.session.destroy((err) => {
+//   //   if (err) {
+//   //     console.log(err);
+//   //   } else {
+//   //     res.redirect('/');
+//   //   }
+//   // });
+// });
 
-app.post('/bananas', (req, res) => {
+// app.post('/bananas', (req, res) => {
 
-});
+// });
