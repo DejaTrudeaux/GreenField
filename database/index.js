@@ -38,12 +38,20 @@ const signupUser = (obj, callback) => {
 };
 
 const findBook = (number, callback) => {
-  const queryStr = `select * from userbooklist where isbn_books = ${number}`;
-  connection.query(queryStr, (err, result) => {
+  const getUserBookStr = `select * from userbooklist where isbn_books = ${number}`;
+  const getInfoStr = `select users.username, users.email, books.author, books.title, books.description from users inner join userbooklist on userbooklist.username_users=users.username inner join books on userbooklist.isbn_books=books.isbn and userbooklist.isbn_books=${number};`;
+  connection.query(getUserBookStr, (err, result) => {
     if (err) {
       callback(err);
     } else {
-      callback(result);
+      connection.query(getInfoStr, (err2, result2) => {
+        if (err) {
+          console.log(err2);
+        } else {
+          callback(result2);
+        }
+      });
+      // callback(result);
     }
   });
 };
