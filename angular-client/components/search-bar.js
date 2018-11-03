@@ -6,7 +6,7 @@ angular.module('app')
         method: 'get',
         url: `/isbn/'${searchterm}'`,
       }).then((response) => {
-        console.log(response);
+        console.log(response, 'THIS IS FOR SURE THE THING I AM LOOKING FOR');
       }).catch((err) => {
         console.log(err);
       });

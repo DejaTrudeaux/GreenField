@@ -49,6 +49,15 @@ const findBook = (number, callback) => {
 };
 
 const addBook = (bookObj, username, callback) => {
+  const bookQueryStr = `insert into books (isbn, title, description, author) values (${bookObj.isbn}, '${bookObj.title}', '${bookObj.description}', '${bookObj.author}')`;
+  // const userQueryStr = `insert into userbooklist ()`
+  connection.query(bookQueryStr, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      callback(result);
+    }
+  })
   console.log(bookObj, username, 'IN DATABASE!!!!!!!!!!!!!!!!!!');
 };
 
