@@ -16,7 +16,7 @@ angular.module('app')
         method: 'get',
         url: `https://www.googleapis.com/books/v1/volumes?q=isbn:${book}`,
         headers: {
-          key: 'AIzaSyCubWXauKcLrRA_qquVgyy4mEBGQipgbHM',
+          key: 'API KEY',
         },
       }).then((response) => {
         const resObj = response.data.items[0];

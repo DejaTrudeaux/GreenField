@@ -1,1 +1,1 @@
-window.GOOGLEBOOKS_API_KEY = 'AIzaSyCubWXauKcLrRA_qquVgyy4mEBGQipgbHM';
+window.GOOGLEBOOKS_API_KEY = 'API KEY';
