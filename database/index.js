@@ -48,17 +48,26 @@ const findBook = (number, callback) => {
   });
 };
 
-const addBook = (bookObj, username, callback) => {
+const addBook = (bookObj, sessionUser, callback) => {
+  // add book to books table
   const bookQueryStr = `insert into books (isbn, title, description, author) values (${bookObj.isbn}, '${bookObj.title}', '${bookObj.description}', '${bookObj.author}')`;
-  // const userQueryStr = `insert into userbooklist ()`
+  const userBookQueryStr = `insert into userbooklist (isbn_books, username_users) values (${bookObj.isbn}, '${sessionUser}')`;
   connection.query(bookQueryStr, (err, result) => {
     if (err) {
       console.log(err);
     } else {
       callback(result);
+      // then add information to shared userbooklist table
+      connection.query(userBookQueryStr, (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(result);
+        }
+      });
     }
-  })
-  console.log(bookObj, username, 'IN DATABASE!!!!!!!!!!!!!!!!!!');
+    console.log(bookObj, sessionUser, 'ADD BOOK IN DATABASE!!!!!!!!!!!!!!!!!!');
+  });
 };
 
 module.exports.checkUser = checkUser;

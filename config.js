@@ -1,1 +1,1 @@
-window.GOOGLEBOOKS_API_KEY = 'API KEY';
+const apiKey = 'API KEY';
