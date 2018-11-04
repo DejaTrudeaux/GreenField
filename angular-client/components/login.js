@@ -22,7 +22,7 @@ angular.module('app')
         url: '/signup',
         data: { email, username, password },
       }).then((response) => {
-        console.log(response, 'LOGINJS SIGNUPUSER RESPONSE');
+        console.log(response);
       }).catch((err) => {
         console.log(err);
       });

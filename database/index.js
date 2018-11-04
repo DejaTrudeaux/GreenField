@@ -37,5 +37,67 @@ const signupUser = (obj, callback) => {
   });
 };
 
+const findBook = (number, callback) => {
+  const getUserBookStr = `select * from userbooklist where isbn_books = ${number}`;
+  const getInfoStr = `select users.username, users.email, books.author, books.title, books.description from users inner join userbooklist on userbooklist.username_users=users.username inner join books on userbooklist.isbn_books=books.isbn and userbooklist.isbn_books=${number};`;
+  connection.query(getUserBookStr, (err, result) => {
+    if (err) {
+      callback(err);
+    } else {
+      connection.query(getInfoStr, (err2, result2) => {
+        if (err) {
+          console.log(err2);
+        } else {
+          callback(result2);
+        }
+      });
+      // callback(result);
+    }
+  });
+};
+
+const addBook = (bookObj, sessionUser, callback) => {
+  // add book to books table
+  const bookQueryStr = `insert into books (ISBN, title, description, author) values (${bookObj.isbn}, '${bookObj.title}', '${bookObj.description}', '${bookObj.author}')`;
+  const userBookQueryStr = `insert into userbooklist (isbn_books, username_users) values (${bookObj.isbn}, '${sessionUser}')`;
+  const findBookStr = `select * from books where ISBN = ${bookObj.isbn}`;
+  connection.query(findBookStr, (err, result) => {
+    if (err) {
+      callback(err);
+    } else {
+      if (result.length === 0) {
+        connection.query(bookQueryStr, (err, result) => {
+          if (err) {
+            callback(err);
+          } else {
+            console.log(result);
+          }
+        });
+      }
+      connection.query(userBookQueryStr, (err, result) => {
+        if (err) {
+          callback(err);
+        } else {
+          console.log(result);
+        }
+      });
+    }
+  });
+};
+
+const haveBooks = (sessionUser, callback) => {
+  const haveBooksStr = `select books.title from books inner join userbooklist on userbooklist.username_users = '${sessionUser}' and books.isbn=userbooklist.isbn_books`;
+  connection.query(haveBooksStr, (err, result) => {
+    if (err) {
+      callback(err);
+    } else {
+      callback(result);
+    }
+  });
+};
+
 module.exports.checkUser = checkUser;
 module.exports.signupUser = signupUser;
+module.exports.findBook = findBook;
+module.exports.addBook = addBook;
+module.exports.haveBooks = haveBooks;

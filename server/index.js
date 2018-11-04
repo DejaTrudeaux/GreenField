@@ -31,19 +31,19 @@ app.use(bodyParser.json());
 // this is the main page with a login screen
 app.get('/', (req, res) => {
   // if the user has a session
-  if (req.session.user) {
-    // redirect them to search page
-    res.sendfile('angular-client/templates/search-bar.html');
-    // else
-  } else {
-    // redirect them to signup page
-    res.sendfile('angular-client/templates/login.html');
-  }
+  // if (req.session.user) {
+  //   // redirect them to search page
+  //   res.redirect('/Users/deja_video/Documents/Immersion/greenfield/angular-client/templates/search-bar.html');
+  //   // else
+  // } else {
+  //   // redirect them to login page
+  //   res.sendFile('/Users/deja_video/Documents/Immersion/greenfield/angular-client/templates/login.html');
+  // }
 });
 
 // this is the page the user gets to when they log in
 app.get('/search', (req, res) => {
-  res.sendfile('angular-client/templates/search-bar.html');
+  // res.sendFile('/Users/deja_video/Documents/Immersion/greenfield/angular-client/templates/search-bar.html');
 });
 
 
@@ -104,6 +104,22 @@ app.post('/signup', (req, res) => {
   //       res.redirect('/signup');
   //     }
   //   });
+});
+
+app.get('/isbn/:number', (req, res) => {
+  const isbn = req.url.slice(6);
+  db.findBook(isbn, (response) => {
+    res.send(response);
+  });
+});
+
+app.post('/books', (req, res) => {
+  db.addBook(req.body, req.session.user, (response) => {
+    res.send(response);
+  });
+  db.haveBooks(req.session.user, (user) => {
+    res.send(user);
+  });
 });
 
 // this is the logout page

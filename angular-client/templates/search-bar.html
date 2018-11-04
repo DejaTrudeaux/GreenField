@@ -3,14 +3,31 @@
     <div class="col-md-10">
       <form role="form">
         <div class="form-group">
-            <h2>Search here to Swap Books:</h2>
-          <input type="text" class="form-control" id="searchField" placeholder="Enter ISBN"/>
+            <h2 class="searchheader">Search here to Swap Books:</h2>
+          <input type="text" class="form-control" id="searchField" placeholder="Enter ISBN" ng-model="searchterm"/>
         </div>
         
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary" ng-click="$ctrl.searchbooks(searchterm)">
           Search
+        </button>
+        <!-- list random books from db -->
+        <div>
+          <book-list booklist="$ctrl.ctrlArr"></book-list>
+        </div>
+        <div class="form-group">
+          <h2 class="haveBooksHeader">Books you have:</h2>
+          <input type="text" class="form-control" id="haveField" placeholder="Enter ISBN" ng-model="book" />
+        </div>
+        
+        <button type="submit" class="btn btn-primary" ng-click="$ctrl.addBooks(book)">
+          Add
+        </button>
+        <button type="submit" class="btn btn-danger" ng-click="$ctrl.remBooks(book)">
+          Remove
         </button>
       </form>
     </div>
   </div>
 </div>
+
+<!-- <pre>{{$ctrl.ctrlArr}}</pre> -->
