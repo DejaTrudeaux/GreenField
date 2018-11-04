@@ -31,20 +31,22 @@ angular.module('app')
             method: 'post',
             url: '/books',
             data: bookObj,
+          }).then((res) => {
+            console.log(res, 'RESPONSE IN CLIENT');
           });
-        })
-      // then $http get /books, db query to select * from userbookslist where user_id = session username
-        .then(helperService.getMyBooks((err, books) => {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log(books, 'BOOKS');
-            this.myBooks = books;
-          }
-        }))
-        .then((res) => {
-          console.log(res, 'RESPONSE IN CLIENT');
         });
+      // then $http get /books, db query to select * from userbookslist where user_id = session username
+        // .then(helperService.getMyBooks((err, books) => {
+        //   if (err) {
+        //     console.log(err);
+        //   } else {
+        //     console.log(books, 'BOOKS');
+        //     this.myBooks = books;
+        //   }
+        // }))
+        // .then((res) => {
+        //   console.log(res, 'RESPONSE IN CLIENT');
+        // });
     };
     this.remBooks = (book) => {};
   })
