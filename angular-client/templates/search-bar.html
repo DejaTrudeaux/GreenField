@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-8">
       <form role="form">
         <div class="form-group">
             <h2 class="searchheader">Search here to Swap Books:</h2>
@@ -14,6 +14,8 @@
         <div>
           <book-list booklist="$ctrl.ctrlArr"></book-list>
         </div>
+      </div>
+    <div class="col-md-4" id="havebooks">
         <div class="form-group">
           <h2 class="haveBooksHeader">Books you have:</h2>
           <input type="text" class="form-control" id="haveField" placeholder="Enter ISBN" ng-model="book" />
