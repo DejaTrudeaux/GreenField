@@ -40,7 +40,7 @@ const signupUser = (obj, callback) => {
 
 const findBook = (number, callback) => {
   const getUserBookStr = `select * from userbooklist where isbn_books = ${number}`;
-  const getInfoStr = `select users.username, users.email, books.author, books.title, books.description from users inner join userbooklist on userbooklist.username_users=users.username inner join books on userbooklist.isbn_books=books.isbn and userbooklist.isbn_books=${number};`;
+  const getInfoStr = `select users.username, users.email, books.author, books.title, books.description, books.imageLink from users inner join userbooklist on userbooklist.username_users=users.username inner join books on userbooklist.isbn_books=books.isbn and userbooklist.isbn_books=${number};`;
   connection.query(getUserBookStr, (err, result) => {
     if (err) {
       callback(err);
