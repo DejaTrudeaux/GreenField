@@ -68,7 +68,7 @@ const addBook = (bookObj, sessionUser, callback) => {
       if (result.length === 0) {
         connection.query(bookQueryStr, (err, result) => {
           if (err) {
-            console.log(err);
+            callback(err);
           } else {
             console.log(result);
           }
@@ -76,7 +76,7 @@ const addBook = (bookObj, sessionUser, callback) => {
       }
       connection.query(userBookQueryStr, (err, result) => {
         if (err) {
-          console.log(err);
+          callback(err);
         } else {
           console.log(result);
         }
@@ -85,7 +85,20 @@ const addBook = (bookObj, sessionUser, callback) => {
   });
 };
 
+const haveBooks = (sessionUser, callback) => {
+  console.log(sessionUser, 'USER!!!!!!!!!!!!');
+  const haveBooksStr = `select books.title from books inner join userbooklist on userbooklist.username_users = '${sessionUser}' and books.isbn=userbooklist.isbn_books`;
+  connection.query(haveBooksStr, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(result);
+    }
+  });
+};
+
 module.exports.checkUser = checkUser;
 module.exports.signupUser = signupUser;
 module.exports.findBook = findBook;
 module.exports.addBook = addBook;
+module.exports.haveBooks = haveBooks;

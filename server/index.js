@@ -117,6 +117,10 @@ app.post('/books', (req, res) => {
   db.addBook(req.body, req.session.user, (response) => {
     res.send(response);
   });
+  db.haveBooks(req.session.user, (user) => {
+    console.log(req.session.user, 'THIS IS THE USER!!!!!!!!');
+    res.send(user);
+  });
 });
 
 // this is the logout page
