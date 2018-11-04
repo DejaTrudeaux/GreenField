@@ -41,7 +41,7 @@ angular.module('app')
           }).then((res) => {
             console.log(res, 'RESPONSE IN CLIENT');
           });
-        });    
+        });
     };
     this.remBooks = (book) => {};
   })

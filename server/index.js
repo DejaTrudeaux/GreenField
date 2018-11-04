@@ -118,7 +118,6 @@ app.post('/books', (req, res) => {
     res.send(response);
   });
   db.haveBooks(req.session.user, (user) => {
-    console.log(req.session.user, 'THIS IS THE USER!!!!!!!!');
     res.send(user);
   });
 });

@@ -86,13 +86,12 @@ const addBook = (bookObj, sessionUser, callback) => {
 };
 
 const haveBooks = (sessionUser, callback) => {
-  console.log(sessionUser, 'USER!!!!!!!!!!!!');
   const haveBooksStr = `select books.title from books inner join userbooklist on userbooklist.username_users = '${sessionUser}' and books.isbn=userbooklist.isbn_books`;
   connection.query(haveBooksStr, (err, result) => {
     if (err) {
-      console.log(err);
+      callback(err);
     } else {
-      console.log(result);
+      callback(result);
     }
   });
 };
