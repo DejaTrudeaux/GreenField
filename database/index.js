@@ -86,7 +86,7 @@ const addBook = (bookObj, sessionUser, callback) => {
 };
 
 const myBooks = (username, callback) => {
-  const getInfoStr = `select users.username, books.isbn, books.title from users inner join userbooklist on userbooklist.username_users=users.username and userbooklist.username_users='${username}' inner join books`;
+  const getInfoStr = `select userbooklist.id, books.title from users inner join userbooklist on userbooklist.username_users=users.username and userbooklist.username_users='${username}' inner join books`;
   const innerStr = `select books.title from books inner join userbooklist on userbooklist.username_users = '${username}' and books.isbn=userbooklist.isbn_books`;
   const queryStr = `select * from userbooklist where username_users = '${username}'`;
   connection.query(innerStr, (err, books) => {
@@ -101,7 +101,6 @@ const myBooks = (username, callback) => {
 
 const remBooks = (bookObj, callback) => {
   const remUserBookStr = `delete from userbooklist where isbn_books=${bookObj.isbn}`;
-  const remBookStr = `delete from books where isbn=${bookObj.isbn}`;
   connection.query(remUserBookStr, (err, response) => {
     if (err) {
       callback(err);
