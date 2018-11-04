@@ -65,20 +65,20 @@ const addBook = (bookObj, sessionUser, callback) => {
     if (err) {
       callback(err);
     } else {
-      if (!result.length) {
+      if (result.length === 0) {
         connection.query(bookQueryStr, (err, result) => {
           if (err) {
-            callback(err);
+            console.log(err);
           } else {
-            callback(result);
+            console.log(result);
           }
         });
       }
       connection.query(userBookQueryStr, (err, result) => {
         if (err) {
-          callback(err);
+          console.log(err);
         } else {
-          callback(result);
+          console.log(result);
         }
       });
     }
