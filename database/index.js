@@ -52,7 +52,6 @@ const findBook = (number, callback) => {
           callback(result2);
         }
       });
-      // callback(result);
     }
   });
 };
@@ -99,10 +98,29 @@ const myBooks = (username, callback) => {
   });
 };
 
+const remBooks = (bookObj, callback) => {
+  const remUserBookStr = `delete from userbooklist where isbn_books=${bookObj.isbn}`;
+  const remBookStr = `delete from books where isbn=${bookObj.isbn}`;
+  connection.query(remUserBookStr, (err, response) => {
+    if (err) {
+      callback(err);
+    } else {
+      connection.query(remBookStr, (err, res2) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(res2);
+        }
+      });
+    }
+  });
+};
+
 module.exports = {
   checkUser,
   signupUser,
   findBook,
   addBook,
   myBooks,
+  remBooks,
 };

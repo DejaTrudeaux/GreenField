@@ -39,16 +39,16 @@ app.get('/', (req, res) => {
   //     console.log(success);
   //   }
   // });
-  console.log('hello');
-  // if the user has a session
-  if (req.session.user) {
-    // redirect them to search page
-    res.sendFile('angular-client/templates/search-bar.html');
-    // else
-  } else {
-    // redirect them to signup page
-    res.sendFile('angular-client/templates/login.html');
-  }
+  // console.log('hello');
+  // // if the user has a session
+  // if (req.session.user) {
+  //   // redirect them to search page
+  //   res.sendFile('angular-client/templates/search-bar.html');
+  //   // else
+  // } else {
+  //   // redirect them to signup page
+  //   res.sendFile('angular-client/templates/login.html');
+  // }
 });
 
 // this is the page the user gets to when they log in
@@ -116,6 +116,7 @@ app.post('/signup', (req, res) => {
   //   });
 });
 
+// get info about a book from googlebooks api
 app.get('/isbn/:number', (req, res) => {
   const isbn = req.url.slice(6);
   db.findBook(isbn, (response) => {
@@ -123,6 +124,7 @@ app.get('/isbn/:number', (req, res) => {
   });
 });
 
+// add a book to mybooks
 app.post('/books', (req, res) => {
   db.addBook(req.body, req.session.user, (response) => {
     res.send(response);
@@ -131,6 +133,7 @@ app.post('/books', (req, res) => {
 //     res.send(user);
 //   });
 });
+
 
 app.get('/books', (req, res) => {
   db.myBooks(req.session.user, (err, books) => {
@@ -142,7 +145,14 @@ app.get('/books', (req, res) => {
   });
 });
 
-// this is the logout page
+// delete book from mybooks request handler
+app.delete('/books', (req, res) => {
+  db.remBooks(req.body, (response) => {
+    res.send(response);
+  });
+});
+
+// this is the logout (incomplete)
 app.get('/logout', (req, res) => {
   // req.session.destroy((err) => {
   //   if (err) {

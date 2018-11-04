@@ -1,7 +1,7 @@
 angular.module('app')
   .controller('BookListItemCtrl', function BookListItemCtrl() {
     this.clickEmail = (email) => {
-      console.log(email);
+      window.location.href = 'https://www.gmail.com';
     };
   })
   .component('bookListItem', {
