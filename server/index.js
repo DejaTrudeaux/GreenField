@@ -127,9 +127,6 @@ app.post('/books', (req, res) => {
   db.addBook(req.body, req.session.user, (response) => {
     res.send(response);
   });
-//   db.haveBooks(req.session.user, (user) => {
-//     res.send(user);
-//   });
 });
 
 app.get('/books', (req, res) => {

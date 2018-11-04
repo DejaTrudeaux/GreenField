@@ -1,8 +1,10 @@
 const mysql = require('mysql');
+const config = require('../config');
 
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
+  password: config.dbp,
   database: 'BookSwap',
 });
 
@@ -59,6 +61,7 @@ const findBook = (number, callback) => {
 
 const addBook = (bookObj, sessionUser, callback) => {
   // add book to books table
+
   const bookQueryStr = `insert into books (ISBN, title, description, author, imageLink) values (${bookObj.isbn}, '${bookObj.title}', '${bookObj.description}', '${bookObj.author}', '${bookObj.image}')`;
   const userBookQueryStr = `insert into userbooklist (isbn_books, username_users) values (${bookObj.isbn}, '${sessionUser}')`;
   const findBookStr = `select * from books where ISBN = ${bookObj.isbn}`;
