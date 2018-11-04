@@ -1,4 +1,4 @@
-Window.mocData = [
+const data = [
   {
     kind: 'books#volumes',
     totalItems: 1,
@@ -883,3 +883,39 @@ Window.mocData = [
     ],
   },
 ];
+
+// module.exports.data = data;
+
+
+// 9780985875138 Young Adult(13 +) Burning Building Comix, $19.95
+// 9781603094221 Mature(16 +) Cat'n'Bat, $9.99
+// 9781603090667 Adults Only(18 +) Chester 5000(Book 1), $14.95
+// 9781936561698 Adults Only(18 +) Chester 5000(Book 2): Isabelle & George, $14.95
+// 9781603093828 Mature(16 +) Cigarette Girl, $24.99
+// 9781603094252 Young Adult(13 +) Cloud Hotel, $19.99
+// 9780971359765 Mature(18 +) Clumsy by Jeffrey Brown, $10.00
+// 9781603094276 Mature Readers(16 +) Coin - Op Comics Anthology: 1997 - 2017, $29.99
+// 9781603094283 Mature Readers(16 +) Come Again, $24.99
+// 9781603091008 Mature(16 +) Crater XV, $19.95
+// 9781891830815 Young Adult(13 +) Cry Yourself to Sleep by Jeremy Tinder, TBD
+// 9781603092715 Young Adult(13 +) Dear Beloved Stranger, $19.95
+// 9781891830129 Mature(16 +) Dear Julia, by Brian Biggs, $12.95
+// 9781891830921 Mature Readers(16 +) Death by Chocolate - Redux, $14.95
+// 9781603090124 Mature(16 +) Delayed Replays, $7.00
+// 9781603090575 All Ages Dragon Puncher(Book 1), $9.95
+// 9781603090858 All Ages Dragon Puncher(Book 2): Island, $9.95
+// 9781603093873 Mature(16 +) Eddie Campbell's Omnibox: The Complete ALEC and BACCHUS (3 Volume Slipcase), $99.99
+// 9781603090384 Young Adult(13 +) Essex County, $29.95
+// 9781891830778 Mature(16 +) Every Girl is the End of the World for Me by Jeffrey Brown, $8.00
+// 9781603090360 Mature(16 +) Far Arden, $19.95
+// 9781603093750 Mature Reader(16 +) Fear and Loathing in Las Vegas, $24.99
+// 827714010046Mature(16 +) Fear and Loathing in Las Vegas-- SIGNED AND NUMBERED EDITION, $50.00
+// 9781603090537 Mature(16 +) Fingerprints, $14.95
+// 9781891830976 Mature(16 +) Fox Bunny Funny, $10.00
+// 9780958578349 Mature(18 +) From Hell by Alan Moore & Eddie Campbell, $35.00
+// 9781603093972 Mature(18 +) From Hell-- HARDCOVER, $39.99
+// UPC 827714016215 00111Mature(16 +) From Hell: Master Edition #01(of 10), $7.99
+// 9781603093446 Mature(16 +) The Fun Family, $24.99
+// 9781603090803 Mature(16 +) Gingerbread Girl, $12.95
+// 9781603094382 Mature(16 +) Girl Town, $19.99
+// 9781603093866 

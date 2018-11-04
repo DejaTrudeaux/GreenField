@@ -6,7 +6,6 @@ module.exports = {
     },
     rules: {
         'import/extensions': 0,
-        'react/destructuring-assignment': 1,
-        'react/jsx-one-expression-per-line': 0, 
+       
     }
 };

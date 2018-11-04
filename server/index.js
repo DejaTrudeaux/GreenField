@@ -4,6 +4,7 @@ const path = require('path');
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const db = require('../database/index.js');
+const mock = require('../mocData.js');
 
 const app = express();
 // use express sessions to authenticate user
@@ -30,20 +31,29 @@ app.use(bodyParser.json());
 
 // this is the main page with a login screen
 app.get('/', (req, res) => {
+  // for each item in
+  // db.dbmockInsertion(mock.data, (err, success) => {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     console.log(success);
+  //   }
+  // });
+  console.log('hello');
   // if the user has a session
   if (req.session.user) {
     // redirect them to search page
-    res.sendfile('angular-client/templates/search-bar.html');
+    res.sendFile('angular-client/templates/search-bar.html');
     // else
   } else {
     // redirect them to signup page
-    res.sendfile('angular-client/templates/login.html');
+    res.sendFile('angular-client/templates/login.html');
   }
 });
 
 // this is the page the user gets to when they log in
 app.get('/search', (req, res) => {
-  res.sendfile('angular-client/templates/search-bar.html');
+  // res.sendFile('/Users/deja_video/Documents/Immersion/greenfield/angular-client/templates/search-bar.html');
 });
 
 
@@ -104,6 +114,32 @@ app.post('/signup', (req, res) => {
   //       res.redirect('/signup');
   //     }
   //   });
+});
+
+app.get('/isbn/:number', (req, res) => {
+  const isbn = req.url.slice(6);
+  db.findBook(isbn, (response) => {
+    res.send(response);
+  });
+});
+
+app.post('/books', (req, res) => {
+  db.addBook(req.body, req.session.user, (response) => {
+    res.send(response);
+  });
+//   db.haveBooks(req.session.user, (user) => {
+//     res.send(user);
+//   });
+});
+
+app.get('/books', (req, res) => {
+  db.myBooks(req.session.user, (err, books) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(books);
+    }
+  });
 });
 
 // this is the logout page

@@ -1,5 +1,5 @@
 angular.module('app')
-  .controller('SignupCtrl', () => {
+  .controller('SignupCtrl', function SignupCtrl() {
     this.view = 'signup';
   })
   .component('signup', {

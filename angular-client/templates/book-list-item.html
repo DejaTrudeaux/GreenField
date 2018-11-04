@@ -1,1 +1,18 @@
-<div></div>
+<div>
+  <div class="bookentry">
+    <h6><strong>{{$ctrl.book.author}}</strong> <em>{{$ctrl.book.title}}</em></h6>
+    <p class="bookdesc">{{$ctrl.book.description}}</p>
+  </div>
+  <div class="usersinfo">
+    <div class="usernameemail">
+      <div class="username">
+        User with this book: {{$ctrl.book.username}}
+      </div>
+      <div class="email" ng-click="$ctrl.clickEmail(email)">
+        {{$ctrl.book.email}}
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 
+<pre>{{$ctrl.book}} LIST ITEM HTML</pre> -->
