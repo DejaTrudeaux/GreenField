@@ -24,13 +24,14 @@
         <button type="submit" class="btn btn-primary" ng-click="$ctrl.addBooks(book)">
           Add
         </button>
-        <button type="submit" class="btn btn-danger" ng-click="$ctrl.remBooks(book)">
-          Remove
-        </button>
-        <!-- this is where the list of book that i have will go -->
+      
+<!-- this is where the list of book that i have will go -->
+         <div>
+           <have-list mybooks="$ctrl.myBooks"></have-list>
+         </div>
       </form>
     </div>
   </div>
 </div>
 
-<!-- <pre>{{$ctrl.ctrlArr}}</pre> -->
+<!-- <pre>{{$ctrl.myBooks}}</pre> -->
