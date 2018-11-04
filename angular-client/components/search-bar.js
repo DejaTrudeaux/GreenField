@@ -1,5 +1,5 @@
 angular.module('app')
-  .controller('SearchBarCtrl', function SearchBarCtrl($http) {
+  .controller('SearchBarCtrl', function SearchBarCtrl($http, helperService) {
     this.view = 'search-bar';
     this.searchbooks = (searchterm) => {
       $http({
@@ -22,6 +22,7 @@ angular.module('app')
           title: resObj.volumeInfo.title,
           description: resObj.volumeInfo.description,
           author: resObj.volumeInfo.authors[0],
+          // imageLink
         };
         return bookObj;
       })
@@ -32,7 +33,16 @@ angular.module('app')
             data: bookObj,
           });
         })
-        .then((res)=>{
+      // then $http get /books, db query to select * from userbookslist where user_id = session username
+        // .then(helperService.getMyBooks((err, books) => {
+        //   if (err) {
+        //     console.log(err);
+        //   } else {
+        //     console.log(books, 'BOOKS');
+        //     this.myBooks = books;
+        //   }
+        // }))
+        .then((res) => {
           console.log(res, 'RESPONSE IN CLIENT');
         });
     };

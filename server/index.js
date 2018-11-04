@@ -125,7 +125,17 @@ app.get('/isbn/:number', (req, res) => {
 
 app.post('/books', (req, res) => {
   db.addBook(req.body, req.session.user, (response) => {
-    res.send(response);
+    // res.send(response);
+  });
+});
+
+app.get('/books', (req, res) => {
+  db.myBooks(req.session.user, (err, books) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(books);
+    }
   });
 });
 

@@ -77,26 +77,31 @@ const addBook = (bookObj, sessionUser, callback) => {
       });
     }
   });
-  // connection.query(bookQueryStr, (err, result) => {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
-  //     callback(result);
-  //     // then add information to shared userbooklist table
-  //     connection.query(userBookQueryStr, (err, result) => {
-  //       if (err) {
-  //         console.log(err);
-  //       } else {
-  //         console.log(result);
-  //       }
-  //     });
-  //   }
-  //   console.log(bookObj, sessionUser, 'ADD BOOK IN DATABASE!!!!!!!!!!!!!!!!!!');
-  // });
 };
 
-module.exports.checkUser = checkUser;
-module.exports.signupUser = signupUser;
-module.exports.findBook = findBook;
-// module.exports.dbmockInsertion = dbmockInsertion;
-module.exports.addBook = addBook;
+// const myBooks = (username, callback) => {
+//   const innerStr = `select books.title from books inner join userbooklist where userbooklist.username_users = ${username}`;
+//   const queryStr = `select * from userbooklist where username_users = '${username}'`;
+//   connection.query(queryStr, (err, books) => {
+//     if (err) {
+//       callback(err, null);
+//     } else {
+//       callback(null, books);
+//       // console.log(books, 'BOOKS');
+//     }
+//   });
+// };
+
+// module.exports.checkUser = checkUser;
+// module.exports.signupUser = signupUser;
+// module.exports.findBook = findBook;
+// // module.exports.dbmockInsertion = dbmockInsertion;
+// module.exports.addBook = addBook;
+
+module.exports = {
+  checkUser,
+  signupUser,
+  findBook,
+  addBook,
+  // myBooks,
+};
