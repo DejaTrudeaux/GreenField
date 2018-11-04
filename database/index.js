@@ -79,18 +79,18 @@ const addBook = (bookObj, sessionUser, callback) => {
   });
 };
 
-// const myBooks = (username, callback) => {
-//   const innerStr = `select books.title from books inner join userbooklist where userbooklist.username_users = ${username}`;
-//   const queryStr = `select * from userbooklist where username_users = '${username}'`;
-//   connection.query(queryStr, (err, books) => {
-//     if (err) {
-//       callback(err, null);
-//     } else {
-//       callback(null, books);
-//       // console.log(books, 'BOOKS');
-//     }
-//   });
-// };
+const myBooks = (username, callback) => {
+  const innerStr = `select books.title from books inner join userbooklist where userbooklist.username_users = ${username}`;
+  const queryStr = `select * from userbooklist where username_users = '${username}'`;
+  connection.query(queryStr, (err, books) => {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, books);
+      // console.log(books, 'BOOKS');
+    }
+  });
+};
 
 // module.exports.checkUser = checkUser;
 // module.exports.signupUser = signupUser;
@@ -103,5 +103,5 @@ module.exports = {
   signupUser,
   findBook,
   addBook,
-  // myBooks,
+  myBooks,
 };
