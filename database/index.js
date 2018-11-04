@@ -89,6 +89,7 @@ const addBook = (bookObj, sessionUser, callback) => {
 };
 
 const myBooks = (username, callback) => {
+  const getInfoStr = `select users.username, books.isbn, books.title from users inner join userbooklist on userbooklist.username_users=users.username and userbooklist.username_users='${username}' inner join books`;
   const innerStr = `select books.title from books inner join userbooklist on userbooklist.username_users = '${username}' and books.isbn=userbooklist.isbn_books`;
   const queryStr = `select * from userbooklist where username_users = '${username}'`;
   connection.query(innerStr, (err, books) => {
