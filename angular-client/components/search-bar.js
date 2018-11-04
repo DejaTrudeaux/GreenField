@@ -1,5 +1,5 @@
 angular.module('app')
-  .controller('SearchBarCtrl', function SearchBarCtrl($http) {
+  .controller('SearchBarCtrl', function SearchBarCtrl($http, helperService) {
     this.view = 'search-bar';
     this.ctrlArr = [];
     this.searchbooks = (searchterm) => {
@@ -20,9 +20,6 @@ angular.module('app')
       $http({
         method: 'get',
         url: `https://www.googleapis.com/books/v1/volumes?q=isbn:${book}`,
-        headers: {
-          key: 'API KEY',
-        },
       }).then((response) => {
         const resObj = response.data.items[0];
         const bookObj = {
@@ -30,6 +27,7 @@ angular.module('app')
           title: resObj.volumeInfo.title,
           description: resObj.volumeInfo.description,
           author: resObj.volumeInfo.authors[0],
+          image: resObj.volumeInfo.imageLinks.thumbnail,
         };
         return bookObj;
       })
@@ -38,9 +36,18 @@ angular.module('app')
             method: 'post',
             url: '/books',
             data: bookObj,
-          }).then((res) => {
-            console.log(res, 'RESPONSE IN CLIENT');
-          });
+          })
+            .then((res) => {
+              console.log(res, 'RESPONSE IN CLIENT');
+            })
+            .then(helperService.getMyBooks((err, books) => {
+              if (err) {
+                console.log(err);
+              } else {
+                console.log(books, 'BOOKS');
+                this.myBooks = books;
+              }
+            }));
         });
     };
     this.remBooks = (book) => {};
@@ -50,5 +57,5 @@ angular.module('app')
       books: '<',
     },
     controller: 'SearchBarCtrl',
-    templateUrl: '/templates/search-bar.html', 
+    templateUrl: '/templates/search-bar.html',
   });
