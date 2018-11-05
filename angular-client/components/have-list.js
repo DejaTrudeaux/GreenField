@@ -4,6 +4,7 @@ angular.module('app')
   .component('haveList', {
     bindings: {
       mybooks: '<',
+      rembooks: '<',
     },
     controller: 'HaveListCtrl',
     templateUrl: '/templates/have-list.html',
