@@ -9,7 +9,7 @@ const connection = mysql.createConnection({
 });
 
 const checkUser = (obj, callback) => {
-// do connection.query to check users table for that username, return that password
+  // do connection.query to check users table for that username, return that password
   const queryStr = `select password from users where username = '${obj.username}'`;
   connection.query(queryStr, (err, result) => {
     if (err) {
