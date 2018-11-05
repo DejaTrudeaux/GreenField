@@ -19,6 +19,11 @@ angular.module('app')
         data: {
           rowId: id,
         },
-      });
+      }).then((books) => {
+        console.log(null, books);
+      })
+        .catch((err) => {
+          console.log(err, null);
+        });
     };
   });

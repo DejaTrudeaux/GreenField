@@ -50,6 +50,9 @@ angular.module('app')
             }));
         });
     };
+    this.showBooks = () => {
+
+    };
     this.remBooks = (book) => {};
   })
   .component('searchBar', {
