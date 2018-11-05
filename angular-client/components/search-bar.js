@@ -2,10 +2,12 @@ angular.module('app')
   .controller('SearchBarCtrl', function SearchBarCtrl($http, helperService) {
     this.view = 'search-bar';
     this.ctrlArr = [];
-    helperService.getMyBooks(() => {
-
-    });
     this.myBooks = [];
+    helperService.getMyBooks().then((books) => {
+      this.myBooks = books;
+    }).catch((err) => {
+      console.log(err);
+    });
     this.searchbooks = (searchterm) => {
       $http({
         method: 'get',
@@ -43,24 +45,25 @@ angular.module('app')
           console.log(err);
         })
         .then(() => {
-          helperService.getMyBooks((books) => {
-            console.log(books, 'BOOKS');
-            this.myBooks = books.data;
+          helperService.getMyBooks().then((books) => {
+            this.myBooks = books;
+            console.log(books);
+          }).catch((err) => {
+            console.log(err);
           });
         });
     };
 
     this.remBooks = (bookId) => {
-      console.log(this.myBooks, 'THIS IS IT');
-
-      console.log(bookId, 'BOOK ID');
-      // index of element where id = bookId
-      for (let i = 0; i < this.myBooks.length; i++) {
-        if (this.myBooks[i].id === bookId) {
-          this.myBooks.splice(i, 1);
-          console.log('YOURBOOKWASREMOVED');
-        }
-      }
+      helperService.removeBook(bookId).then(() => {
+        helperService.getMyBooks().then((books) => {
+          this.myBooks = books;
+        }).catch((err) => {
+          console.log(err);
+        });
+      }).catch((err) => {
+        console.log(err);
+      });
     };
   })
   .component('searchBar', {

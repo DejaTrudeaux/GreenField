@@ -59,7 +59,6 @@ const findBook = (number, callback) => {
 
 const addBook = (bookObj, sessionUser, callback) => {
   // add book to books table
-
   const bookQueryStr = `insert into books (ISBN, title, description, author, imageLink) values (${bookObj.isbn}, '${bookObj.title}', '${bookObj.description}', '${bookObj.author}', '${bookObj.image}')`;
   const userBookQueryStr = `insert into userbooklist (isbn_books, username_users) values (${bookObj.isbn}, '${sessionUser}')`;
   const findBookStr = `select * from books where ISBN = ${bookObj.isbn}`;
@@ -102,7 +101,8 @@ const myBooks = (username, callback) => {
 };
 
 const remBooks = (bookObj, callback) => {
-  const remUserBookStr = `delete from userbooklist where id=${bookObj.rowId}`;
+  // book object just has an id property here
+  const remUserBookStr = `delete from userbooklist where id=${bookObj.id}`;
   connection.query(remUserBookStr, (err, response) => {
     if (err) {
       callback(err);
