@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server/index.js"
+    "start": "nodemon server/index.js",
+    "super": "PORT=443 nodemon server/index.js"
   },
   "repository": {
     "type": "git",

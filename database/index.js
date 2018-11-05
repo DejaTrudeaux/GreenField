@@ -3,12 +3,21 @@ const config = require('../config');
 
 const connection = mysql.createConnection({
   host: 'localhost',
-  user: 'root',
+  user: process.env.DBU || 'root',
+  password: process.env.DBP || config.dbp,
   database: 'BookSwap',
 });
 
+connection.connect(function (err) {
+  if (err) {
+    console.error('error connecting: ' + err.stack);
+    return;
+  }
+  console.log('connected to DB wow whatever your heart desires');
+});
+
 const checkUser = (obj, callback) => {
-// do connection.query to check users table for that username, return that password
+  // do connection.query to check users table for that username, return that password
   const queryStr = `select password from users where username = '${obj.username}'`;
   connection.query(queryStr, (err, result) => {
     if (err) {
@@ -32,8 +41,10 @@ const signupUser = (obj, callback) => {
   connection.query(queryStr, (err, result) => {
     console.log('db query insertion attempted');
     if (err) {
+      console.log(err);
       callback(err);
     } else {
+      console.log(result);
       callback(result);
     }
   });
