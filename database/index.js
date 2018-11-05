@@ -13,7 +13,6 @@ connection.connect(function (err) {
     console.error('error connecting: ' + err.stack);
     return;
   }
-
   console.log('connected to DB wow whatever your heart desires');
 });
 
