@@ -80,7 +80,7 @@ const addBook = (bookObj, sessionUser, callback) => {
         if (err3) {
           console.log(err3);
         } else {
-          console.log(result3);
+          callback(result3);
         }
       });
     }

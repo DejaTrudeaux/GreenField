@@ -2,6 +2,10 @@ angular.module('app')
   .controller('SearchBarCtrl', function SearchBarCtrl($http, helperService) {
     this.view = 'search-bar';
     this.ctrlArr = [];
+    helperService.getMyBooks(() => {
+
+    });
+    this.myBooks = [];
     this.searchbooks = (searchterm) => {
       $http({
         method: 'get',
@@ -31,32 +35,29 @@ angular.module('app')
         };
         return bookObj;
       })
-        .then((bookObj) => {
-          $http({
-            method: 'post',
-            url: '/books',
-            data: bookObj,
-          })
-            .then((res) => {
-              console.log(res, 'RESPONSE IN CLIENT');
-            })
-            .then(helperService.getMyBooks((err, books) => {
-              if (err) {
-                console.log(err);
-              } else {
-                console.log(books, 'BOOKS');
-                this.myBooks = books;
-              }
-            }));
+        .then(bookObj => $http({
+          method: 'post',
+          url: '/books',
+          data: bookObj,
+        })).catch((err) => {
+          console.log(err);
+        })
+        .then(() => {
+          helperService.getMyBooks((books) => {
+            console.log(books, 'BOOKS');
+            this.myBooks = books.data;
+          });
         });
     };
 
     this.remBooks = (bookId) => {
-      console.log(this, 'THIS IS IT');
+      console.log(this.myBooks, 'THIS IS IT');
+
+      console.log(bookId, 'BOOK ID');
       // index of element where id = bookId
-      for (let i = 0; i < this.myBooks.data.length; i++) {
-        if (this.myBooks.data[i].id === bookId) {
-          this.myBooks.data.splice(i, 1);
+      for (let i = 0; i < this.myBooks.length; i++) {
+        if (this.myBooks[i].id === bookId) {
+          this.myBooks.splice(i, 1);
           console.log('YOURBOOKWASREMOVED');
         }
       }
