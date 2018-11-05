@@ -33,8 +33,10 @@ const signupUser = (obj, callback) => {
   connection.query(queryStr, (err, result) => {
     console.log('db query insertion attempted');
     if (err) {
+      console.log(err);
       callback(err);
     } else {
+      console.log(result);
       callback(result);
     }
   });
