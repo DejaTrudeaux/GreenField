@@ -6,10 +6,10 @@ angular.module('app')
         url: '/books',
       })
         .then((books) => {
-          callback(null, books);
+          callback(books);
         })
         .catch((err) => {
-          callback(err, null);
+          callback(err);
         });
     };
     this.removeBook = (id) => {

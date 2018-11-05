@@ -85,6 +85,7 @@ app.post('/signup', (req, res) => {
         req.session.user = req.body.username;
       });
     }
+    res.send(response);
   });
   // new User({ username })
   //   .fetch()
@@ -120,6 +121,7 @@ app.post('/signup', (req, res) => {
 app.get('/isbn/:number', (req, res) => {
   const isbn = req.url.slice(6);
   db.findBook(isbn, (response) => {
+    console.log('FOUND BOOK IN SERVER');
     res.send(response);
   });
 });

@@ -1,9 +1,14 @@
 angular.module('app')
-  .controller('HaveListCtrl', function HaveListCtrl() {
+  .controller('HaveListCtrl', function HaveListCtrl(helperService) {
+    this.bookArr = [];
+    helperService.getMyBooks((res) => {
+      this.bookArr = res.data;
+    });
+    
   })
   .component('haveList', {
     bindings: {
-      mybooks: '<',
+      // mybooks: '<',
       rembooks: '<',
     },
     controller: 'HaveListCtrl',

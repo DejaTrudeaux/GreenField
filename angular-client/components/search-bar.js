@@ -52,7 +52,7 @@ angular.module('app')
     };
 
     this.remBooks = (bookId) => {
-      console.log(bookId);
+      console.log(this, 'THIS IS IT');
       // index of element where id = bookId
       for (let i = 0; i < this.myBooks.data.length; i++) {
         if (this.myBooks.data[i].id === bookId) {
