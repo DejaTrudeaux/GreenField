@@ -143,7 +143,8 @@ app.get('/books', (req, res) => {
 });
 
 // delete book from mybooks request handler
-app.delete('/books', (req, res) => {
+app.post('/rembooks', (req, res) => {
+  console.log(req.body, 'REQUEST BODY');
   db.remBooks(req.body, (response) => {
     console.log(response);
     db.myBooks(req.session.user, (err, books) => {

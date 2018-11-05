@@ -12,16 +12,13 @@ angular.module('app')
           callback(err, null);
         });
     };
-    this.removeBook = (callback) => {
+    this.removeBook = (id) => {
       $http({
-        method: 'delete',
-        url: '/books',
-      })
-        .then((books) => {
-          callback(books);
-        })
-        .catch((err) => {
-          callback(err);
-        });
+        method: 'post',
+        url: '/rembooks',
+        data: {
+          rowId: id,
+        },
+      });
     };
   });
