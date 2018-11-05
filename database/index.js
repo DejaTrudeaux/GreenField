@@ -4,7 +4,6 @@ const config = require('../config');
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: config.dbp,
   database: 'BookSwap',
 });
 
@@ -60,7 +59,6 @@ const findBook = (number, callback) => {
 
 const addBook = (bookObj, sessionUser, callback) => {
   // add book to books table
-
   const bookQueryStr = `insert into books (ISBN, title, description, author, imageLink) values (${bookObj.isbn}, '${bookObj.title}', '${bookObj.description}', '${bookObj.author}', '${bookObj.image}')`;
   const userBookQueryStr = `insert into userbooklist (isbn_books, username_users) values (${bookObj.isbn}, '${sessionUser}')`;
   const findBookStr = `select * from books where ISBN = ${bookObj.isbn}`;
@@ -81,7 +79,7 @@ const addBook = (bookObj, sessionUser, callback) => {
         if (err3) {
           console.log(err3);
         } else {
-          console.log(result3);
+          callback(result3);
         }
       });
     }
@@ -103,7 +101,8 @@ const myBooks = (username, callback) => {
 };
 
 const remBooks = (bookObj, callback) => {
-  const remUserBookStr = `delete from userbooklist where id=${bookObj.rowId}`;
+  // book object just has an id property here
+  const remUserBookStr = `delete from userbooklist where id=${bookObj.id}`;
   connection.query(remUserBookStr, (err, response) => {
     if (err) {
       callback(err);

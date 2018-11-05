@@ -2,6 +2,12 @@ angular.module('app')
   .controller('SearchBarCtrl', function SearchBarCtrl($http, helperService) {
     this.view = 'search-bar';
     this.ctrlArr = [];
+    this.myBooks = [];
+    helperService.getMyBooks().then((books) => {
+      this.myBooks = books;
+    }).catch((err) => {
+      console.log(err);
+    });
     this.searchbooks = (searchterm) => {
       $http({
         method: 'get',
@@ -31,35 +37,33 @@ angular.module('app')
         };
         return bookObj;
       })
-        .then((bookObj) => {
-          $http({
-            method: 'post',
-            url: '/books',
-            data: bookObj,
-          })
-            .then((res) => {
-              console.log(res, 'RESPONSE IN CLIENT');
-            })
-            .then(helperService.getMyBooks((err, books) => {
-              if (err) {
-                console.log(err);
-              } else {
-                console.log(books, 'BOOKS');
-                this.myBooks = books;
-              }
-            }));
+        .then(bookObj => $http({
+          method: 'post',
+          url: '/books',
+          data: bookObj,
+        })).catch((err) => {
+          console.log(err);
+        })
+        .then(() => {
+          helperService.getMyBooks().then((books) => {
+            this.myBooks = books;
+            console.log(books);
+          }).catch((err) => {
+            console.log(err);
+          });
         });
     };
 
     this.remBooks = (bookId) => {
-      console.log(bookId);
-      // index of element where id = bookId
-      for (let i = 0; i < this.myBooks.data.length; i++) {
-        if (this.myBooks.data[i].id === bookId) {
-          this.myBooks.data.splice(i, 1);
-          console.log('YOURBOOKWASREMOVED');
-        }
-      }
+      helperService.removeBook(bookId).then(() => {
+        helperService.getMyBooks().then((books) => {
+          this.myBooks = books;
+        }).catch((err) => {
+          console.log(err);
+        });
+      }).catch((err) => {
+        console.log(err);
+      });
     };
   })
   .component('searchBar', {
