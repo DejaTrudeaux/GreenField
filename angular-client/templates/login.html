@@ -4,27 +4,22 @@
             <h3 class="text-center" id="maintitle">
                 Book Swap
             </h3>
+            <img class="swapimg" src="https://www.tridentbookscafe.com/sites/tridentbookscafe.com/files/book%20swap.jpg">
         </div>
     </div>
     <div class="row">
         <div class="col-md-9">
-<dt>
-    Description
+<dt class="whatisit">
+    What is it?
 </dt>
 <dd>
-    Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.
+    Book Swap is a way to trade books by connecting avid readers with others who want to share the books they've read.
 </dd>
 <dd>
-    Donec id elit non mi porta gravida at eget metus.
-</dd>
-<dt>
-    Malesuada porta
-</dt>
-<dd>
-    Etiam porta sem malesuada magna mollis euismod.
+    It's easy. List the books you have, and search for the ones you want.
 </dd>
 </div>
-        <div class="col-md-6">
+        <div class="col-md-6" id="loginform">
             <form role="form">
                 <!-- Login form -->
                 <label for="login-form-group" class="login-label">
@@ -49,40 +44,6 @@
                 </div>
                 <button type="submit" class="btn btn-primary" ng-click="$ctrl.checkUser(username, password)">
                     Log In
-                </button>
-            </form>
-        </div>
-        <div class="col-md-6">
-            <form role="form">
-                <!-- Signup form -->
-                <label for="signup-form-group" class="signup-label">
-                    <strong>Sign Up:</strong>
-                </label>
-                <div class="signup-form-group">
-                    <label for="inputEmail">
-                        Your Email
-                    </label>
-                    <input type="email" class="form-control" id="inputEmail" ng-model="signupemail" />
-                </div>
-                <div class="signup-form-group">
-                    <label for="createUsername">
-                        Create Username
-                    </label>
-                    <input type="username" class="form-control" id="createUsername" ng-model="signupusername" />
-                </div>
-                <div class="signup-form-group">
-        
-                    <label for="createPassword">
-                        Create Password
-                    </label>
-                    <input type="password" class="form-control" id="createPassword" ng-model="signuppassword" />
-                </div>
-                <div class="form-group">
-                </div>
-                <div class="checkbox">
-                </div>
-                <button type="submit" id="signup-button" class="btn btn-primary" ng-click="$ctrl.signupUser(signupemail, signupusername, signuppassword)">
-                    Sign Up
                 </button>
             </form>
         </div>

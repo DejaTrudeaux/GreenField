@@ -8,10 +8,9 @@ angular.module('app')
       }).then((response) => {
         if (response.data.bool) {
           this.changeview('search-bar');
+        } else {
+          this.changeview('signup');
         }
-        // else {
-        //   this.changeview('signup');
-        // }
       }).catch((err) => {
         console.log(err);
       });
