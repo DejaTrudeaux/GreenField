@@ -12,4 +12,13 @@ angular.module('app')
           callback(err, null);
         });
     };
+    this.removeBook = (id) => {
+      $http({
+        method: 'post',
+        url: '/rembooks',
+        data: {
+          rowId: id,
+        },
+      });
+    };
   });

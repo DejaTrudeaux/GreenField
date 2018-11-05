@@ -17,20 +17,21 @@
       </div>
     <div class="col-md-4" id="havebooks">
         <div class="form-group">
-          <h2 class="haveBooksHeader">Books you have:</h2>
+          <h4 class="haveBooksHeader">My Books:</h4>
           <input type="text" class="form-control" id="haveField" placeholder="Enter ISBN" ng-model="book" />
         </div>
         
         <button type="submit" class="btn btn-primary" ng-click="$ctrl.addBooks(book)">
           Add
         </button>
-        <button type="submit" class="btn btn-danger" ng-click="$ctrl.remBooks(book)">
-          Remove
-        </button>
-        <!-- this is where the list of book that i have will go -->
+      
+<!-- this is where the list of book that i have will go -->
+         <div>
+           <have-list rembooks="$ctrl.remBooks" mybooks="$ctrl.myBooks"></have-list>
+         </div>
       </form>
     </div>
   </div>
 </div>
 
-<!-- <pre>{{$ctrl.ctrlArr}}</pre> -->
+<pre>{{$ctrl.myBooks}}</pre>

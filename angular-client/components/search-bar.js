@@ -50,7 +50,17 @@ angular.module('app')
             }));
         });
     };
-    this.remBooks = (book) => {};
+
+    this.remBooks = (bookId) => {
+      console.log(bookId);
+      // index of element where id = bookId
+      for (let i = 0; i < this.myBooks.data.length; i++) {
+        if (this.myBooks.data[i].id === bookId) {
+          this.myBooks.data.splice(i, 1);
+          console.log('YOURBOOKWASREMOVED');
+        }
+      }
+    };
   })
   .component('searchBar', {
     bindings: {

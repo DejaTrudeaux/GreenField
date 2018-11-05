@@ -1,8 +1,10 @@
 const mysql = require('mysql');
+const config = require('../config');
 
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
+  password: config.dbp,
   database: 'BookSwap',
 });
 
@@ -52,13 +54,13 @@ const findBook = (number, callback) => {
           callback(result2);
         }
       });
-      // callback(result);
     }
   });
 };
 
 const addBook = (bookObj, sessionUser, callback) => {
   // add book to books table
+
   const bookQueryStr = `insert into books (ISBN, title, description, author, imageLink) values (${bookObj.isbn}, '${bookObj.title}', '${bookObj.description}', '${bookObj.author}', '${bookObj.image}')`;
   const userBookQueryStr = `insert into userbooklist (isbn_books, username_users) values (${bookObj.isbn}, '${sessionUser}')`;
   const findBookStr = `select * from books where ISBN = ${bookObj.isbn}`;
@@ -87,14 +89,26 @@ const addBook = (bookObj, sessionUser, callback) => {
 };
 
 const myBooks = (username, callback) => {
+  const getInfoStr = `select userbooklist.id, books.title from users inner join userbooklist on userbooklist.username_users=users.username and userbooklist.username_users='${username}' inner join books on books.isbn = userbooklist.isbn_books`;
   const innerStr = `select books.title from books inner join userbooklist on userbooklist.username_users = '${username}' and books.isbn=userbooklist.isbn_books`;
   const queryStr = `select * from userbooklist where username_users = '${username}'`;
-  connection.query(innerStr, (err, books) => {
+  connection.query(getInfoStr, (err, books) => {
     if (err) {
       callback(err, null);
     } else {
       callback(null, books);
       // console.log(books, 'BOOKS');
+    }
+  });
+};
+
+const remBooks = (bookObj, callback) => {
+  const remUserBookStr = `delete from userbooklist where id=${bookObj.rowId}`;
+  connection.query(remUserBookStr, (err, response) => {
+    if (err) {
+      callback(err);
+    } else {
+      callback(response);
     }
   });
 };
@@ -105,4 +119,5 @@ module.exports = {
   findBook,
   addBook,
   myBooks,
+  remBooks,
 };
