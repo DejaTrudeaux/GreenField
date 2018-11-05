@@ -3,7 +3,7 @@ const config = require('../config');
 
 const connection = mysql.createConnection({
   host: 'localhost',
-  user: 'root',
+  user: process.env.DBU || 'root',
   password: process.env.DBP || config.dbp,
   database: 'BookSwap',
 });
