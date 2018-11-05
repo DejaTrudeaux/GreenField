@@ -8,6 +8,15 @@ const connection = mysql.createConnection({
   database: 'BookSwap',
 });
 
+connection.connect(function (err) {
+  if (err) {
+    console.error('error connecting: ' + err.stack);
+    return;
+  }
+
+  console.log('connected to DB wow whatever your heart desires');
+});
+
 const checkUser = (obj, callback) => {
   // do connection.query to check users table for that username, return that password
   const queryStr = `select password from users where username = '${obj.username}'`;
