@@ -1,30 +1,27 @@
 angular.module('app')
-  .controller('LoginCtrl', function LoginCtrl($http, helperService) {
+  .controller('LoginCtrl', function LoginCtrl($http) {
+    // post request to check username and password
     this.checkUser = (username, password) => {
       $http({
         method: 'post',
         url: '/login',
         data: { username, password },
       }).then((response) => {
+        // if user is logged in, (bool is true)
         if (response.data.bool) {
+          // change view to search bar
           this.changeview('search-bar');
         } else {
+          // if not, send them to signup
           this.changeview('signup');
         }
       }).catch((err) => {
         console.log(err);
       });
-
-      // helperService.getMyBooks((err, books) => {
-      //   if (err) {
-      //     console.log(err);
-      //   } else {
-      //     console.log(books, 'BOOKS');
-      //     this.myBooks = books;
-      //   }
-      // });
     };
+
     this.signupUser = (email, username, password) => {
+      // user post request needs an email, username, and password
       $http({
         method: 'post',
         url: '/signup',

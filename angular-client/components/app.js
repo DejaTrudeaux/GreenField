@@ -1,5 +1,6 @@
 angular.module('app')
-  .controller('AppCtrl', function AppCtrl($http) {
+  .controller('AppCtrl', function AppCtrl() {
+    // change view to login
     this.view = 'login';
     this.changeview = (option) => {
       this.view = option;

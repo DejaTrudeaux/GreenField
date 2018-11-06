@@ -1,7 +1,6 @@
 angular.module('app')
   .controller('HaveListItemCtrl', function HaveListItemCtrl(helperService) {
     this.removeBook = helperService.removeBook;
-    console.log(this);
   })
   .component('haveListItem', {
     bindings: {

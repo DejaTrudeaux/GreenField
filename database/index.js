@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const mysql = require('mysql');
 const config = require('../config');
 
@@ -8,14 +9,16 @@ const connection = mysql.createConnection({
   database: 'BookSwap',
 });
 
-connection.connect(function (err) {
+// database connection
+connection.connect((err) => {
   if (err) {
-    console.error('error connecting: ' + err.stack);
+    console.error('Error connecting: ' + err.stack);
     return;
   }
-  console.log('connected to DB wow whatever your heart desires');
+  console.log('Connected to DB.');
 });
 
+// check user's username in password
 const checkUser = (obj, callback) => {
   // do connection.query to check users table for that username, return that password
   const queryStr = `select password from users where username = '${obj.username}'`;
@@ -36,6 +39,7 @@ const checkUser = (obj, callback) => {
   });
 };
 
+// sign up user
 const signupUser = (obj, callback) => {
   const queryStr = `insert into users (email, username, password) values ('${obj.email}', '${obj.username}', '${obj.password}')`;
   connection.query(queryStr, (err, result) => {
@@ -50,10 +54,14 @@ const signupUser = (obj, callback) => {
   });
 };
 
+
 const findBook = (number, callback) => {
+  // find entry matching isbn typed into input
   const getUserBookStr = `select * from userbooklist where isbn_books = ${number}`;
+  // select necessary information from joined books, userbooklist, and users table to create
+  // an object where user's email is connected to book information
   const getInfoStr = `select users.username, users.email, books.author, books.title, books.description, books.imageLink from users inner join userbooklist on userbooklist.username_users=users.username inner join books on userbooklist.isbn_books=books.isbn and userbooklist.isbn_books=${number};`;
-  connection.query(getUserBookStr, (err, result) => {
+  connection.query(getUserBookStr, (err) => {
     if (err) {
       callback(err);
     } else {
@@ -68,10 +76,13 @@ const findBook = (number, callback) => {
   });
 };
 
+// add book to books table
 const addBook = (bookObj, sessionUser, callback) => {
-  // add book to books table
+  // insert book information to books table
   const bookQueryStr = `insert into books (ISBN, title, description, author, imageLink) values (${bookObj.isbn}, '${bookObj.title}', '${bookObj.description}', '${bookObj.author}', '${bookObj.image}')`;
+  // insert corresponding user and books info into userbookslist table
   const userBookQueryStr = `insert into userbooklist (isbn_books, username_users) values (${bookObj.isbn}, '${sessionUser}')`;
+  // find books that match an isbn
   const findBookStr = `select * from books where ISBN = ${bookObj.isbn}`;
   connection.query(findBookStr, (err, result) => {
     if (err) {
@@ -98,9 +109,8 @@ const addBook = (bookObj, sessionUser, callback) => {
 };
 
 const myBooks = (username, callback) => {
+  // get all of a user's books
   const getInfoStr = `select userbooklist.id, books.title from users inner join userbooklist on userbooklist.username_users=users.username and userbooklist.username_users='${username}' inner join books on books.isbn = userbooklist.isbn_books`;
-  const innerStr = `select books.title from books inner join userbooklist on userbooklist.username_users = '${username}' and books.isbn=userbooklist.isbn_books`;
-  const queryStr = `select * from userbooklist where username_users = '${username}'`;
   connection.query(getInfoStr, (err, books) => {
     if (err) {
       callback(err, null);
@@ -111,8 +121,9 @@ const myBooks = (username, callback) => {
   });
 };
 
+// remove books based on an id property in the userbooklist tables
 const remBooks = (bookObj, callback) => {
-  // book object just has an id property here
+  // book object only has an id property here
   const remUserBookStr = `delete from userbooklist where id=${bookObj.id}`;
   connection.query(remUserBookStr, (err, response) => {
     if (err) {

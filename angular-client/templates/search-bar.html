@@ -6,12 +6,11 @@
             <h2 class="searchheader">Search here to Swap Books:</h2>
           <input type="text" class="form-control" id="searchField" placeholder="Enter ISBN" ng-model="searchterm"/>
         </div>
-        
         <button type="submit" class="btn btn-primary" ng-click="$ctrl.searchbooks(searchterm)">
           Search
         </button>
-        <!-- list random books from db -->
         <div>
+            <!-- searched books here -->
           <book-list booklist="$ctrl.ctrlArr"></book-list>
         </div>
       </div>
@@ -24,9 +23,8 @@
         <button type="submit" class="btn btn-primary" ng-click="$ctrl.addBooks(book)">
           Add
         </button>
-      
-<!-- this is where the list of book that i have will go -->
          <div>
+           <!-- have list here  -->
            <have-list rembooks="$ctrl.remBooks" mybooks="$ctrl.myBooks"></have-list>
          </div>
       </form>

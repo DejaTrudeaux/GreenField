@@ -1,6 +1,7 @@
 angular.module('app')
   .controller('BookListItemCtrl', function BookListItemCtrl() {
-    this.clickEmail = (email) => {
+    // when user email is clicked, reroute to gmail
+    this.clickEmail = () => {
       window.location.href = 'https://www.gmail.com';
     };
   })

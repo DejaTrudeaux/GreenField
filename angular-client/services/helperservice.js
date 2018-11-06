@@ -5,6 +5,7 @@ angular.module('app')
       url: '/books',
     }).then(response => response.data);
 
+    // post method instead of delete because we are deleting based on an id
     this.removeBook = id => $http({
       method: 'post',
       url: '/rembooks',

@@ -1,15 +1,12 @@
 angular.module('app')
   .controller('SignupCtrl', function SignupCtrl($http) {
-    // this.view = 'signup';
-    this.changeview = (option) => {
-      this.view = option;
-    };
     this.signupUser = (email, username, password) => {
       $http({
         method: 'post',
         url: '/signup',
         data: { email, username, password },
-      }).then((response) => {
+      }).then(() => {
+        // after someone signs up, change the view to login
         this.changeview('login');
       }).catch((err) => {
         console.log(err);
@@ -18,6 +15,7 @@ angular.module('app')
   })
   .component('signup', {
     bindings: {
+      // changeview property
       changeview: '<',
     },
     controller: 'SignupCtrl',

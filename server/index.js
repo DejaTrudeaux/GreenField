@@ -1,10 +1,8 @@
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
-const axios = require('axios');
 const bodyParser = require('body-parser');
 const db = require('../database/index.js');
-const mock = require('../mocData.js');
 
 const app = express();
 // use express sessions to authenticate user
@@ -28,33 +26,6 @@ app.use(express.static(path.join(__dirname, '/../node_modules')));
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
-
-// this is the main page with a login screen
-app.get('/', (req, res) => {
-  // for each item in
-  // db.dbmockInsertion(mock.data, (err, success) => {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
-  //     console.log(success);
-  //   }
-  // });
-  // console.log('hello');
-  // // if the user has a session
-  // if (req.session.user) {
-  //   // redirect them to search page
-  //   res.sendFile('angular-client/templates/search-bar.html');
-  //   // else
-  // } else {
-  //   // redirect them to signup page
-  //   res.sendFile('angular-client/templates/login.html');
-  // }
-});
-
-// this is the page the user gets to when they log in
-app.get('/search', (req, res) => {
-  // res.sendFile('/Users/deja_video/Documents/Immersion/greenfield/angular-client/templates/search-bar.html');
-});
 
 
 app.post('/login', (req, res) => {
@@ -87,6 +58,7 @@ app.post('/signup', (req, res) => {
     }
     res.send(response);
   });
+  // currently not bcrypted
   // new User({ username })
   //   .fetch()
   //   .then((user) => {
@@ -119,9 +91,9 @@ app.post('/signup', (req, res) => {
 
 // get info about a book from googlebooks api
 app.get('/isbn/:number', (req, res) => {
+  // slicing off /isbn/:
   const isbn = req.url.slice(6);
   db.findBook(isbn, (response) => {
-    console.log('FOUND BOOK IN SERVER');
     res.send(response);
   });
 });
@@ -133,7 +105,7 @@ app.post('/books', (req, res) => {
   });
 });
 
-
+// get books of a particular user
 app.get('/books', (req, res) => {
   db.myBooks(req.session.user, (err, books) => {
     if (err) {
@@ -144,11 +116,9 @@ app.get('/books', (req, res) => {
   });
 });
 
-// delete book from mybooks request handler
+// delete book from a user's books
 app.post('/rembooks', (req, res) => {
-  console.log(req.body, 'REQUEST BODY');
-  db.remBooks(req.body, (response) => {
-    console.log(response);
+  db.remBooks(req.body, () => {
     db.myBooks(req.session.user, (err, books) => {
       if (err) {
         console.log(err);
@@ -157,15 +127,4 @@ app.post('/rembooks', (req, res) => {
       }
     });
   });
-});
-
-// this is the logout (incomplete)
-app.get('/logout', (req, res) => {
-  // req.session.destroy((err) => {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
-  //     res.redirect('/');
-  //   }
-  // });
 });
